@@ -1,18 +1,36 @@
-[levels]
-[levels.clone]
+[[levels]]
 	title = "clone"
 	branch = "master"
-	solutionCheckers = []
+	solution_checker = "echo No pushing to master. Read the README file; exit 1"
 	flags = []  # ["start-here"], but it's implicit in the readme
 
-[levels.start-here]
+[[levels]]
 	title = "start-here"
 	branch = "start-here"
-	solutionChecker = "checkers/start-here.sh"
+	solution_checker = "hooks/checkers/start-here.sh"
 	flags = ["merge-1"]
 
-[levels.merge-1]
+[[levels]]
 	title = "merge-1"
 	branch = "fizzling-vulture-pedial"
-	solutionChecker = "checkers/merge-1.sh"
+	solution_checker = "hooks/checkers/merge-1.sh"
 	flags = ["merge-2", "log-1"]
+
+[[levels]]
+	title = "merge-2"
+	branch = "ironish-quartzic-brahmas"
+	solution_checker = "hooks/checkers/merge-2.sh"
+	flags = ["merge-3"]
+
+[[levels]]
+	title = "log-1"
+	branch = "akmite-radicle-garce"
+	solution_checker = "echo No pushing in this stage. ; exit 1"
+	flags = ["log-2"]
+
+[[levels]]
+	title = "log-2"
+	branch = "alibies-listwork-homotaxy"
+	solution_checker = "hooks/checkers/log-2.sh"
+	flags = ["log-3"]
+

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+read old new ref < /dev/stdin
+
+branch_name=$(echo $ref | awk 'BEGIN \{ FS = "/" } ; \{ print $NF }')
+
+print_flags () \{
+	if [[ $# -eq 1 ]] 
+		then echo "You won! The flag is "$1
+	else
+		echo "You won! The flags are "$@
+	fi
+}
+
+case $branch_name in
+{{ for level in levels }}{level.branch})
+    echo $old $new $ref | {level.solution_checker} && print_flags{{ for levelflag in level.flags }} {levelflag}{{ endfor }}
+    ;;
+{{ endfor }}esac

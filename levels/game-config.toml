@@ -15,3 +15,4 @@
 	branch = "fizzling-vulture-pedial"
 	solution_checker = "hooks/checkers/merge-1.sh"
 	flags = ["merge-2", "log-1"]
+

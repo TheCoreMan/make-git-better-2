@@ -57,10 +57,25 @@ fn main() {
     info!("Reading script from {:?}", args.game_config_path);
     let game_config_file_contents = fs::read_to_string(args.game_config_path).unwrap();
 
-    let game_config: GameConfig = toml::from_str(&game_config_file_contents).unwrap();
+    let mut game_config: GameConfig = toml::from_str(&game_config_file_contents).unwrap();
 
     debug!("########## GAME CONFIG STRUCT ##########");
     debug!("{:?}\n", game_config);
+
+    for mut level in &game_config.levels {
+        for mut flag in &level.flags {
+            println!("in {} flag {}", level.title, flag);
+            let mut levels_iterator = game_config.levels.iter();
+            let found = levels_iterator.find(|&x| &x.title == flag);
+            match found {
+                Some(x) => {
+                    debug!("replacing {} with {}", flag, x.branch);
+                    flag = &x.branch;
+                }
+                None => debug!("flag {} is final", flag),
+            }
+        }
+    }
 
     info!("Reading template from {:?}", args.template_path);
     let template_file_contents = fs::read_to_string(args.template_path).unwrap();

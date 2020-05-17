@@ -1,7 +1,7 @@
 [[levels]]
 	title = "clone"
 	branch = "master"
-	solution_checker = "exit 0"
+	solution_checker = "echo I am on the master branch"
 	flags = []  # ["start-here"], but it's implicit in the readme
 
 [[levels]]

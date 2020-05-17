@@ -1,12 +1,12 @@
 #!/bin/bash
 
-source ./common.sh
+source $(dirname $0)/common.sh
 
 read old new ref < /dev/stdin
 
 dump_dir=$(dump-commit-to-directory $new)
 
-pushd dump_dir
+pushd $dump_dir
     # Check file existence.
     if [ ! -f alice.txt ];
         then reject-solution "Alice is missing! Try again.";

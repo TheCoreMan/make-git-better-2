@@ -9,13 +9,16 @@ use toml;
 #[derive(Debug, StructOpt)]
 #[structopt(about = "A script to generate the master pre-receive hook file.")]
 struct Cli {
-    // The path to the file to read
-    #[structopt(parse(from_os_str))]
+    #[structopt(parse(from_os_str), help = "Path to game config file to read")]
     game_config_path: std::path::PathBuf,
+
+    #[structopt(parse(from_os_str), help = "Path to template file to read")]
     template_path: std::path::PathBuf,
+
+    #[structopt(parse(from_os_str), help = "Path to output file (creates if doesn't exist)")]
     output_path: std::path::PathBuf,
 
-    #[structopt(short = "v", long = "verbose")]
+    #[structopt(short = "v", long = "verbose", help = "Show more information about the actions taken")]
     verbose: bool,
 }
 

@@ -1,18 +1,17 @@
-[levels]
-[levels.clone]
+[[levels]]
 	title = "clone"
 	branch = "master"
-	solutionCheckers = []
+	solution_checker = "exit 0"
 	flags = []  # ["start-here"], but it's implicit in the readme
 
-[levels.start-here]
+[[levels]]
 	title = "start-here"
 	branch = "start-here"
-	solutionChecker = "checkers/start-here.sh"
+	solution_checker = "checkers/start-here.sh"
 	flags = ["merge-1"]
 
-[levels.merge-1]
+[[levels]]
 	title = "merge-1"
 	branch = "fizzling-vulture-pedial"
-	solutionChecker = "checkers/merge-1.sh"
+	solution_checker = "checkers/merge-1.sh"
 	flags = ["merge-2", "log-1"]

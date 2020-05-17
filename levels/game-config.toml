@@ -1,17 +1,17 @@
 [[levels]]
 	title = "clone"
 	branch = "master"
-	solution_checker = "echo I am on the master branch"
+	solution_checker = "echo \"No pushing to master Read the README file\"; exit 1"
 	flags = []  # ["start-here"], but it's implicit in the readme
 
 [[levels]]
 	title = "start-here"
 	branch = "start-here"
-	solution_checker = "checkers/start-here.sh"
+	solution_checker = "hooks/checkers/start-here.sh"
 	flags = ["merge-1"]
 
 [[levels]]
 	title = "merge-1"
 	branch = "fizzling-vulture-pedial"
-	solution_checker = "checkers/merge-1.sh"
+	solution_checker = "hooks/checkers/merge-1.sh"
 	flags = ["merge-2", "log-1"]

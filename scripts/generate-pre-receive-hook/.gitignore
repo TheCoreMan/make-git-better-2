@@ -1,0 +1,3 @@
+# Script puts files here by default. Let's avoid commiting them if possible
+output/
+

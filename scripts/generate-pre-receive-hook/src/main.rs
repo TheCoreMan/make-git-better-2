@@ -1,11 +1,13 @@
+use log;
+use log::{debug, info};
 use serde::{Deserialize, Serialize};
-use std::io::Write;
+use simple_logger;
 use std::fs;
+use std::io::Write;
 use structopt::StructOpt;
 use tinytemplate::TinyTemplate;
 use toml;
 
-// Search for a pattern in a file and display the lines that contain it.
 #[derive(Debug, StructOpt)]
 #[structopt(about = "A script to generate the master pre-receive hook file.")]
 struct Cli {
@@ -15,10 +17,18 @@ struct Cli {
     #[structopt(parse(from_os_str), help = "Path to template file to read")]
     template_path: std::path::PathBuf,
 
-    #[structopt(parse(from_os_str), help = "Path to output file (creates if doesn't exist)")]
+    #[structopt(
+        parse(from_os_str),
+        default_value = "output/pre-receive",
+        help = "Path to output file (creates if doesn't exist)"
+    )]
     output_path: std::path::PathBuf,
 
-    #[structopt(short = "v", long = "verbose", help = "Show more information about the actions taken")]
+    #[structopt(
+        short = "v",
+        long = "verbose",
+        help = "Show more information about the actions taken"
+    )]
     verbose: bool,
 }
 
@@ -38,34 +48,37 @@ struct GameConfig {
 fn main() {
     let args = Cli::from_args();
 
-    println!("Reading script from {:?}", args.game_config_path);
-    let game_config_file_contents =
-        fs::read_to_string(args.game_config_path).unwrap();
-
-    let game_config: GameConfig =
-        toml::from_str(&game_config_file_contents).unwrap();
-
     if args.verbose {
-        println!("########## GAME CONFIG STRUCT ##########");
-        println!("{:?}\n", game_config);
-    }
+        simple_logger::init_with_level(log::Level::Debug).unwrap();
+    } else {
+        simple_logger::init_with_level(log::Level::Info).unwrap();
+    };
 
-    println!("Reading template from {:?}", args.template_path);
-    let template_file_contents =
-        fs::read_to_string(args.template_path).unwrap();
+    info!("Reading script from {:?}", args.game_config_path);
+    let game_config_file_contents = fs::read_to_string(args.game_config_path).unwrap();
+
+    let game_config: GameConfig = toml::from_str(&game_config_file_contents).unwrap();
+
+    debug!("########## GAME CONFIG STRUCT ##########");
+    debug!("{:?}\n", game_config);
+
+    info!("Reading template from {:?}", args.template_path);
+    let template_file_contents = fs::read_to_string(args.template_path).unwrap();
 
     let mut tt = TinyTemplate::new();
     let template_name = "switch_case";
-    tt.add_template(template_name, &template_file_contents).unwrap();
+    tt.add_template(template_name, &template_file_contents)
+        .unwrap();
     let rendered = tt.render(template_name, &game_config).unwrap();
 
-    if args.verbose {
-        println!("########## RENDERED TEMPLATE ##########");
-        println!("{}\n", rendered);
-    }
+    debug!("########## RENDERED TEMPLATE ##########");
+    debug!("{}\n", rendered);
 
-    let mut output_file = fs::File::create(&args.output_path).unwrap();
+    let mut output_dir = args.output_path.clone();
+    output_dir.pop();
+    fs::create_dir_all(&output_dir).expect("Failed to create parent dir");
+    let mut output_file = fs::File::create(&args.output_path).expect("Couldn't create file!");
     output_file.write_all(&rendered.as_bytes()).unwrap();
 
-    println!("Wrote rendered file to {:?}", args.output_path);
+    info!("Wrote rendered file to {:?}", args.output_path);
 }

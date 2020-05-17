@@ -16,3 +16,21 @@
 	solution_checker = "hooks/checkers/merge-1.sh"
 	flags = ["merge-2", "log-1"]
 
+[[levels]]
+	title = "merge-2"
+	branch = "ironish-quartzic-brahmas"
+	solution_checker = "hooks/checkers/merge-2.sh"
+	flags = ["merge-3"]
+
+[[levels]]
+	title = "log-1"
+	branch = "akmite-radicle-garce"
+	solution_checker = "echo No pushing in this stage. ; exit 1"
+	flags = ["log-2"]
+
+[[levels]]
+	title = "log-2"
+	branch = "alibies-listwork-homotaxy"
+	solution_checker = "hooks/checkers/log-2.sh"
+	flags = ["log-3"]
+

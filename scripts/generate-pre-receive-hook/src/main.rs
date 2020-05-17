@@ -32,7 +32,7 @@ struct Cli {
     verbose: bool,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 struct Level {
     title: String,
     branch: String,
@@ -43,6 +43,30 @@ struct Level {
 #[derive(Debug, Deserialize, Serialize)]
 struct GameConfig {
     levels: Vec<Level>,
+}
+
+fn replace_flags_with_branch_names(game_config: &mut GameConfig) {
+    let levels_info = game_config.levels.clone();
+
+    for mut level in &mut game_config.levels {
+        let mut new_flags = Vec::new();
+        for flag in &level.flags {
+            debug!("level {} flag {}", level.title, flag);
+            let mut levels_iterator = levels_info.iter();
+            let found = levels_iterator.find(|&x| &x.title == flag);
+            match found {
+                Some(x) => {
+                    debug!("replacing {} with {}", flag, x.branch);
+                    new_flags.push(String::from(&x.branch));
+                }
+                None => {
+                    debug!("flag {} is final", flag);
+                    new_flags.push(flag.to_string());
+                }
+            }
+        }
+        level.flags = new_flags;
+    }
 }
 
 fn main() {
@@ -58,24 +82,11 @@ fn main() {
     let game_config_file_contents = fs::read_to_string(args.game_config_path).unwrap();
 
     let mut game_config: GameConfig = toml::from_str(&game_config_file_contents).unwrap();
+    debug!("Game config before editing: {:?}\n", game_config);
 
-    debug!("########## GAME CONFIG STRUCT ##########");
-    debug!("{:?}\n", game_config);
+    replace_flags_with_branch_names(&mut game_config);
 
-    for mut level in &game_config.levels {
-        for mut flag in &level.flags {
-            println!("in {} flag {}", level.title, flag);
-            let mut levels_iterator = game_config.levels.iter();
-            let found = levels_iterator.find(|&x| &x.title == flag);
-            match found {
-                Some(x) => {
-                    debug!("replacing {} with {}", flag, x.branch);
-                    flag = &x.branch;
-                }
-                None => debug!("flag {} is final", flag),
-            }
-        }
-    }
+    debug!("Game config after editing: {:?}\n", game_config);
 
     info!("Reading template from {:?}", args.template_path);
     let template_file_contents = fs::read_to_string(args.template_path).unwrap();

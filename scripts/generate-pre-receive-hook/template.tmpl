@@ -8,8 +8,7 @@ case $branch_name in
 {{ for level in levels }}{level.branch})
     echo $old $new $ref | {level.solution_checker}
     echo "solved! the flags are..."
-    {{ for levelflag in level.flags }}
-    echo {levelflag}
+    {{ for levelflag in level.flags }}echo {levelflag}
     {{ endfor }}
     ;;
 {{ endfor }}esac

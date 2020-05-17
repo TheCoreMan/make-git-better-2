@@ -1,7 +1,7 @@
 [[levels]]
 	title = "clone"
 	branch = "master"
-	solution_checker = "echo \"No pushing to master Read the README file\"; exit 1"
+	solution_checker = "echo No pushing to master. Read the README file; exit 1"
 	flags = []  # ["start-here"], but it's implicit in the readme
 
 [[levels]]

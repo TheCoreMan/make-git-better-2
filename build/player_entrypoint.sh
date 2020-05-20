@@ -13,8 +13,7 @@ cat ~/.ssh/id_rsa.pub >> /tmp/id_rsa.player.pub
 
 echo "Setting up zsh"
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-echo "ZSH_THEME=\"agnoster\"" >> ~/.zshrc
-echo "plugins=( git )" >> ~/.zshrc
+
 
 git config --global user.email "player@mrnice.dev"
 git config --global user.name "CTF player"

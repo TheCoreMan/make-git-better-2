@@ -1,13 +1,13 @@
 use log::{debug, info};
 use petgraph::graph::NodeIndex;
 use petgraph::{Directed, Graph};
+use petgraph::dot::{Dot, Config};
 use std::fs;
 use structopt::StructOpt;
 
 use common::{GameConfig, Level};
 
-type LevelsGraph<'a> = Graph<&'a Level, (), Directed>;
-type Nodes<'a> = Vec<&'a NodeIndex>;
+type LevelsGraph = Graph<Level, (), Directed>;
 
 #[derive(Debug, StructOpt)]
 #[structopt(about = "A script to generate a levels graph from a game config.")]
@@ -23,61 +23,57 @@ struct Cli {
     verbose: bool,
 }
 
-/// Recursive function that populates the game graph.NodeIndex
+/// Recursive function that populates the game graph
 /// 
 /// If receives a graph initialized with the first level as a root node.
-fn add_level_nodes_to_graph<'a, 'gl>(
+fn add_level_nodes_to_graph<'a>(
     current_level: Level,
-    current_node: &'gl NodeIndex,
-    graph: &'gl mut LevelsGraph,
+    current_node: &'a NodeIndex,
+    levels_graph: &'a mut LevelsGraph,
     game_config: &'a GameConfig,
-) -> Nodes<'gl> {
-    let mut new_nodes = Nodes::new();
+) {
     if current_level.flags.len() == 0 {
-        return new_nodes;
+        return;
     };
 
     for flag in current_level.flags {
         debug!("level {} flag {}", current_level.title, flag);
-        let levels_iterator = game_config.levels.iter();
+        let mut levels_iterator = game_config.levels.iter();
         let found = levels_iterator.find(|x| x.title == flag);
         match found {
             Some(x) => {
                 debug!("The flag does point to another level, {}. Adding level as node to graph", x.title);
                 // What's the issue here? 
-                let new_node = graph.add_node(x);
-                new_nodes.push(&new_node);
+                let new_node = levels_graph.add_node(x.clone());
                 debug!("Adding edge from {} to {}", current_level.title, x.title);
-                graph.add_edge(*current_node, new_node, ());
+                levels_graph.add_edge(*current_node, new_node, ());
                 debug!("Recursive calling add nodes on {}", x.title);
-                let sub_nodes = add_level_nodes_to_graph(
-                    *x, 
+                add_level_nodes_to_graph(
+                    x.clone(), 
                     &new_node,
-                    graph, 
+                    levels_graph, 
                     &game_config);
-                // new_nodes.append(sub_nodes);
             }
             None => {
                 debug!("The flag doesn't point to another level - no need to recurse");
             }
         }
     };
-    return new_nodes;
 }
 
 fn create_graph_from_game_config(game_config: &GameConfig) -> LevelsGraph {
     let mut levels_graph = LevelsGraph::new();
 
-    let first_level = game_config.levels[0];
-    let tree_root = levels_graph.add_node(&first_level);
-    let nodes = add_level_nodes_to_graph(
+    let first_level = game_config.levels[0].clone();
+    let tree_root = levels_graph.add_node(first_level.clone());
+    add_level_nodes_to_graph(
         first_level,
         &tree_root,
         &mut levels_graph, 
         &game_config
     );
 
-    return levels_graph;
+    levels_graph
 }
 
 fn main() {
@@ -95,5 +91,5 @@ fn main() {
 
     let levels_graph = create_graph_from_game_config(&game_config);
 
-    println!("{:?}", levels_graph);
+    debug!("Generated graph:\n{:?}", Dot::with_config(&levels_graph, &[Config::EdgeNoLabel]));
 }

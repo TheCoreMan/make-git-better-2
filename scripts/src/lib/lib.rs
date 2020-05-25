@@ -1,7 +1,6 @@
 use serde::{Deserialize, Serialize};
-use log::debug;
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, Default, Deserialize, Serialize)]
 pub struct Level {
     pub title: String,
     pub branch: String,
@@ -9,7 +8,7 @@ pub struct Level {
     pub flags: Vec<String>,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Default, Deserialize, Serialize)]
 pub struct GameConfig {
     pub levels: Vec<Level>,
 }

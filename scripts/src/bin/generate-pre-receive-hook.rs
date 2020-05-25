@@ -6,7 +6,7 @@ use structopt::StructOpt;
 use tinytemplate::TinyTemplate;
 use toml;
 
-use common::{GameConfig};
+use common::GameConfig;
 
 #[derive(Debug, StructOpt)]
 #[structopt(about = "A script to generate the master pre-receive hook file.")]

@@ -1,4 +1,5 @@
 use log::{debug, info};
+use petgraph::algo::is_cyclic_directed;
 use petgraph::dot::{Config, Dot};
 use petgraph::graph::NodeIndex;
 use petgraph::{Directed, Graph};
@@ -80,6 +81,37 @@ fn create_graph_from_game_config(game_config: &GameConfig) -> LevelsGraph {
     add_level_nodes_to_graph(first_level, &tree_root, &mut levels_graph, &game_config);
 
     levels_graph
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_graph_from_game_config() {
+        let first_level = Level {
+            title: String::from("first"),
+            branch: String::from("first"),
+            solution_checker: String::from("first"),
+            flags: vec!["second".to_string()],
+        };
+        let second_level = Level {
+            title: String::from("second"),
+            branch: String::from("sec"),
+            solution_checker: String::from("sec"),
+            flags: vec!["another".to_string(), "asdf".to_string()],
+        };
+
+        let game_conf = GameConfig {
+            levels: vec![first_level, second_level],
+        };
+        let graph = create_graph_from_game_config(&game_conf);
+
+        assert_eq!(graph.node_count(), 2);
+        assert_eq!(graph.edge_count(), 1);
+        assert!(graph.is_directed());
+        assert!(!is_cyclic_directed(&graph));
+    }
 }
 
 #[derive(Serialize)]

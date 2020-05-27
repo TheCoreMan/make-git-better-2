@@ -24,3 +24,19 @@ impl fmt::Display for Level {
 pub struct GameConfig {
     pub levels: Vec<Level>,
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_level_display() {
+        let level = Level {
+            title: "tit".to_string(),
+            branch: "bra".to_string(),
+            solution_checker: "sol".to_string(),
+            flags: vec!["fla".to_string()],
+        };
+        assert_eq!(format!("{}", level), "tit".to_string());
+    }
+}

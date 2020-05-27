@@ -1,19 +1,32 @@
 use log::{debug, info};
+use petgraph::dot::{Config, Dot};
 use petgraph::graph::NodeIndex;
 use petgraph::{Directed, Graph};
-use petgraph::dot::{Dot, Config};
+use serde::Serialize;
 use std::fs;
+use std::io::Write;
 use structopt::StructOpt;
+use tinytemplate::TinyTemplate;
 
 use common::{GameConfig, Level};
 
-type LevelsGraph = Graph<Level, (), Directed>;
+type LevelsGraph = Graph<Level, i32, Directed>;
 
 #[derive(Debug, StructOpt)]
 #[structopt(about = "A script to generate a levels graph from a game config.")]
 struct Cli {
     #[structopt(parse(from_os_str), help = "Path to game config file to read")]
     game_config_path: std::path::PathBuf,
+
+    #[structopt(parse(from_os_str), help = "Path to the graph template file to read")]
+    template_path: std::path::PathBuf,
+
+    #[structopt(
+        parse(from_os_str),
+        default_value = "output/levelgraph.html",
+        help = "Path to output file (creates if doesn't exist)"
+    )]
+    output_path: std::path::PathBuf,
 
     #[structopt(
         short = "v",
@@ -24,7 +37,7 @@ struct Cli {
 }
 
 /// Recursive function that populates the game graph
-/// 
+///
 /// If receives a graph initialized with the first level as a root node.
 fn add_level_nodes_to_graph<'a>(
     current_level: Level,
@@ -42,23 +55,21 @@ fn add_level_nodes_to_graph<'a>(
         let found = levels_iterator.find(|x| x.title == flag);
         match found {
             Some(x) => {
-                debug!("The flag does point to another level, {}. Adding level as node to graph", x.title);
-                // What's the issue here? 
+                debug!(
+                    "The flag does point to another level, {}. Adding level as node to graph",
+                    x.title
+                );
                 let new_node = levels_graph.add_node(x.clone());
                 debug!("Adding edge from {} to {}", current_level.title, x.title);
-                levels_graph.add_edge(*current_node, new_node, ());
+                levels_graph.add_edge(*current_node, new_node, 0);
                 debug!("Recursive calling add nodes on {}", x.title);
-                add_level_nodes_to_graph(
-                    x.clone(), 
-                    &new_node,
-                    levels_graph, 
-                    &game_config);
+                add_level_nodes_to_graph(x.clone(), &new_node, levels_graph, &game_config);
             }
             None => {
                 debug!("The flag doesn't point to another level - no need to recurse");
             }
         }
-    };
+    }
 }
 
 fn create_graph_from_game_config(game_config: &GameConfig) -> LevelsGraph {
@@ -66,14 +77,14 @@ fn create_graph_from_game_config(game_config: &GameConfig) -> LevelsGraph {
 
     let first_level = game_config.levels[0].clone();
     let tree_root = levels_graph.add_node(first_level.clone());
-    add_level_nodes_to_graph(
-        first_level,
-        &tree_root,
-        &mut levels_graph, 
-        &game_config
-    );
+    add_level_nodes_to_graph(first_level, &tree_root, &mut levels_graph, &game_config);
 
     levels_graph
+}
+
+#[derive(Serialize)]
+struct Context {
+    levels_graph_as_dot: String,
 }
 
 fn main() {
@@ -91,5 +102,30 @@ fn main() {
 
     let levels_graph = create_graph_from_game_config(&game_config);
 
-    debug!("Generated graph:\n{:?}", Dot::with_config(&levels_graph, &[Config::EdgeNoLabel]));
+    let levels_graph_as_dot = Dot::with_config(&levels_graph, &[Config::EdgeNoLabel]);
+    let context = Context {
+        levels_graph_as_dot: format!("{}", levels_graph_as_dot),
+    };
+
+    debug!("Generated graph:\n{:?}", levels_graph_as_dot);
+
+    info!("Reading template from {:?}", args.template_path);
+    let template_file_contents = fs::read_to_string(args.template_path).unwrap();
+
+    let mut tt = TinyTemplate::new();
+    let template_name = "levels_graph";
+    tt.add_template(template_name, &template_file_contents)
+        .unwrap();
+    let rendered = tt.render(template_name, &context).unwrap();
+
+    debug!("########## RENDERED TEMPLATE ##########");
+    debug!("{}\n", rendered);
+
+    let mut output_dir = args.output_path.clone();
+    output_dir.pop();
+    fs::create_dir_all(&output_dir).expect("Failed to create parent dir");
+    let mut output_file = fs::File::create(&args.output_path).expect("Couldn't create file!");
+    output_file.write_all(&rendered.as_bytes()).unwrap();
+
+    info!("Wrote rendered file to {:?}", args.output_path);
 }

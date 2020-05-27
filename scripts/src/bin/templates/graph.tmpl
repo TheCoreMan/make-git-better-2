@@ -15,9 +15,25 @@
     var container = document.getElementById('mynetwork');
 
     var options = \{
-        layout: \{
+        autoResize: true,
+	nodes: \{
+	    shape: "box",
+	    shadow: true,
+	    color: "#e8eef2",
+	    font: "20px arial black"
+	},
+	edges: \{
+	    color: "#e8eef2",
+	},
+	physics: \{
+	    enabled: true,
+	    solver: "hierarchicalRepulsion",
+	},
+	layout: \{
             hierarchical: \{
-                direction: "LR"
+                direction: "LR",
+		levelSeperation: 70,
+		nodeSpacing: 33,
             }
         }
     };

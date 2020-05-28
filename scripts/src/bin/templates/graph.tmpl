@@ -1,0 +1,52 @@
+<div id="mynetwork"></div>
+
+<script type="text/javascript">
+    var DOTstring = `
+	    {levels_graph_as_dot | unescaped}
+`;
+    var parsedData = vis.parseDOTNetwork(DOTstring);
+
+    var data = \{
+	  nodes: parsedData.nodes,
+	  edges: parsedData.edges
+    }
+
+    // create a network
+    var container = document.getElementById('mynetwork');
+
+    var options = \{
+        autoResize: true,
+	nodes: \{
+	    shape: "box",
+	    shadow: true,
+	    color: "#e8eef2",
+	    font: "20px arial black"
+	},
+	edges: \{
+	    color: "#e8eef2",
+	},
+	physics: \{
+	    enabled: true,
+	    solver: "hierarchicalRepulsion",
+	},
+	layout: \{
+            hierarchical: \{
+                direction: "LR",
+		levelSeparation: 100,
+		nodeSpacing: 33,
+            }
+        }
+    };
+
+    // initialize your network!
+    var network = new vis.Network(container, data, options);
+    network.on("click", function(params) \{
+        if (1 == params.nodes.length) \{
+            levelName = data.nodes[params.nodes[0]].label;
+            console.log("Clicked on one node, it's this node: " + levelName);
+	    resulting_url = document.location.origin + "/levels/" + levelName;
+	    console.log("Resulting URL: " + resulting_url);
+            document.location.href = resulting_url;
+        }
+    });
+</script>

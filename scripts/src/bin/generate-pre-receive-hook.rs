@@ -1,12 +1,12 @@
-use log;
 use log::{debug, info};
-use serde::{Deserialize, Serialize};
 use simple_logger;
 use std::fs;
 use std::io::Write;
 use structopt::StructOpt;
 use tinytemplate::TinyTemplate;
 use toml;
+
+use common::GameConfig;
 
 #[derive(Debug, StructOpt)]
 #[structopt(about = "A script to generate the master pre-receive hook file.")]
@@ -32,19 +32,6 @@ struct Cli {
     verbose: bool,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
-struct Level {
-    title: String,
-    branch: String,
-    solution_checker: String,
-    flags: Vec<String>,
-}
-
-#[derive(Debug, Deserialize, Serialize)]
-struct GameConfig {
-    levels: Vec<Level>,
-}
-
 fn replace_flags_with_branch_names(game_config: &mut GameConfig) {
     let levels_info = game_config.levels.clone();
 
@@ -66,6 +53,36 @@ fn replace_flags_with_branch_names(game_config: &mut GameConfig) {
             }
         }
         level.flags = new_flags;
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use common::{GameConfig, Level};
+
+    #[test]
+    fn test_replace_flags_with_branch_names() {
+        let first_level = Level {
+            title: "a".to_string(),
+            branch: "a".to_string(),
+            solution_checker: "a".to_string(),
+            flags: vec!["second_level_title".to_string()],
+        };
+        let second_level = Level {
+            title: "second_level_title".to_string(),
+            branch: "second_level_branch".to_string(),
+            solution_checker: "b".to_string(),
+            flags: vec!["c".to_string()],
+        };
+        let mut game_conf = GameConfig {
+            levels: vec![first_level, second_level],
+        };
+        replace_flags_with_branch_names(&mut game_conf);
+        assert_eq!(
+            game_conf.levels[0].flags[0],
+            "second_level_branch".to_string()
+        );
     }
 }
 

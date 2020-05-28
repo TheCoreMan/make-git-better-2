@@ -1,5 +1,4 @@
 use log::{debug, info};
-use petgraph::algo::is_cyclic_directed;
 use petgraph::dot::{Config, Dot};
 use petgraph::graph::NodeIndex;
 use petgraph::{Directed, Graph};
@@ -86,6 +85,7 @@ fn create_graph_from_game_config(game_config: &GameConfig) -> LevelsGraph {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use petgraph::algo::is_cyclic_directed;
 
     #[test]
     fn test_create_graph_from_game_config() {

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source $(dirname $0)/common.sh
+
+read old new ref < /dev/stdin
+
+dump_dir=$(dump-commit-to-directory $new)
+
+pushd $dump_dir
+    # Check files here
+popd

@@ -14,3 +14,11 @@ dump-commit-to-directory () {
 	echo $temp_dir
 }
 
+# Override pushd and popd to be silent
+pushd () {
+    command pushd "$@" > /dev/null
+}
+
+popd () {
+    command popd "$@" > /dev/null
+}

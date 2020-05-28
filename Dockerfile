@@ -42,7 +42,7 @@ RUN chmod 770 /home/gamemaster/gamemaster_entrypoint.sh
 RUN su -c "/home/gamemaster/gamemaster_entrypoint.sh" - gamemaster
 # Set up the hooks for the actual gameplay in the repo
 COPY levels/checkers /home/gamemaster/ctf-repo/hooks/checkers
-COPY scripts/generate-pre-receive-hook/output/pre-receive /home/gamemaster/ctf-repo/hooks
+COPY scripts/output/pre-receive /home/gamemaster/ctf-repo/hooks
 # Make sure that gamemaster owns all of their files
 RUN chown -R gamemaster:gamemaster /home/gamemaster
 

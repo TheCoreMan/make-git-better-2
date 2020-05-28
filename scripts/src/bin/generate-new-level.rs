@@ -3,6 +3,7 @@ use std::fs;
 use structopt::StructOpt;
 use text_io::read;
 use log::{debug, info, warn};
+use tinytemplate::TinyTemplate;
 
 use common::{GameConfig, Level};
 
@@ -85,8 +86,8 @@ fn main() {
     let all_words: Vec<String> = all_words_file_contents.lines().map(|l| l.to_string()).collect();
 
     debug!("Loading game config from {}", args.game_config_path.display());
-    let game_config_file_contents = fs::read_to_string(args.game_config_path).unwrap();
-    let game_config: GameConfig = toml::from_str(&game_config_file_contents).unwrap();
+    let game_config_file_contents = fs::read_to_string(&args.game_config_path).unwrap();
+    let mut game_config: GameConfig = toml::from_str(&game_config_file_contents).unwrap();
 
     println!("What is the new level title?");
     print!("> ");
@@ -126,4 +127,58 @@ fn main() {
     };
 
     info!("New level about to be generated: {:?}", new_level);
+
+    let checker_info = LevelTemplateInfo {
+        template_path: args.checker_template_path,
+        output_path: args.levels_directory.join("checkers").join(format!("{}.{}", &new_level.title, "sh")),
+    };
+    let test_info = LevelTemplateInfo {
+        template_path: args.test_template_path,
+        output_path: args.levels_directory.join("tests").join(format!("{}.{}", &new_level.title, "sh")),
+    };
+    let page_info = LevelTemplateInfo {
+        template_path: args.page_template_path,
+        output_path: args.levels_directory.join("pages").join(format!("{}.{}", &new_level.title, "md")),
+    };
+    let templates_infos = vec![&checker_info, &test_info, &page_info];
+    create_new_level_files(&new_level, &templates_infos);
+    add_new_level_to_config(&new_level, &mut game_config, &args.game_config_path);
+}
+
+struct LevelTemplateInfo {
+    template_path: std::path::PathBuf,
+    output_path: std::path::PathBuf,
+}
+
+fn create_new_level_files(
+    new_level: &Level, 
+    templates_infos: &Vec<&LevelTemplateInfo>) 
+{
+    for template_info in templates_infos {
+        info!("Reading template from {:?}", template_info.template_path);
+        let template_file_contents = fs::read_to_string(&template_info.template_path).unwrap();
+
+        let mut tt = TinyTemplate::new();
+        let template_name = template_info.template_path.file_name().unwrap().to_str().unwrap();
+        tt.add_template(template_name, &template_file_contents)
+            .unwrap();
+        let rendered = tt.render(template_name, &new_level).unwrap();
+    
+        debug!("########## RENDERED TEMPLATE ##########");
+        debug!("{}\n", rendered);
+    
+        info!("Writing to {}", template_info.output_path.display());
+        fs::write(&template_info.output_path, &rendered.as_bytes()).unwrap();
+    }
+}
+
+fn add_new_level_to_config(
+    new_level: &Level, 
+    game_config: &mut GameConfig,
+    game_config_path: &std::path::PathBuf) 
+{
+    game_config.levels.push(new_level.clone());
+    let new_conf_as_toml = toml::to_string_pretty(&game_config).unwrap();
+    debug!("New config file: {}", new_conf_as_toml);
+    fs::write(game_config_path, new_conf_as_toml).unwrap();
 }

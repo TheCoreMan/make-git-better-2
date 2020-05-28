@@ -32,7 +32,7 @@
 	layout: \{
             hierarchical: \{
                 direction: "LR",
-		levelSeperation: 70,
+		levelSeparation: 100,
 		nodeSpacing: 33,
             }
         }
@@ -44,7 +44,9 @@
         if (1 == params.nodes.length) \{
             levelName = data.nodes[params.nodes[0]].label;
             console.log("Clicked on one node, it's this node: " + levelName);
-            document.location.href = "http://localhost:1313/levels/" + levelName;
+	    resulting_url = document.location.origin + "/levels/" + levelName;
+	    console.log("Resulting URL: " + resulting_url);
+            document.location.href = resulting_url;
         }
     });
 </script>

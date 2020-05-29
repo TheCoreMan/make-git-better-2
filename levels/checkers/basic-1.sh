@@ -7,7 +7,7 @@ read old new ref < /dev/stdin
 dump_dir=$(dump-commit-to-directory $new)
 
 pushd $dump_dir
-    if [ f deleteme.txt ];
+    if [ -f deleteme.txt ];
         then reject-solution "deleteme.txt is still here. Try again.";
     fi
 popd

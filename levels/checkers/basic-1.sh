@@ -10,6 +10,9 @@ pushd $dump_dir
     if [ -f deleteme.txt ];
         then reject-solution "deleteme.txt is still here. Try again.";
     fi
+    if [ ! -f dontdeleteme.txt ];
+        then reject-solution "dontdeleteme.txt was deleted! Try again.";
+    fi
 popd
 
 commit_amount=$( git log scorpion-treenware-gestatory-tag..$new --oneline | wc -l )

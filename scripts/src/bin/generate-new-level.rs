@@ -37,7 +37,7 @@ struct Cli {
     #[structopt(
         parse(from_os_str),
         default_value = "resources/words_alpha.txt",
-        help = "Path to works json File"
+        help = "Path to a file with english words separated by newline"
     )]
     words_path: std::path::PathBuf,
 

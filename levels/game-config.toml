@@ -1,36 +1,23 @@
 [[levels]]
-	title = "clone"
-	branch = "master"
-	solution_checker = "echo No pushing to master. Read the README file; exit 1"
-	flags = ["start-here"]
+title = 'clone'
+branch = 'master'
+solution_checker = 'echo No pushing to master. Read the README file; exit 1'
+flags = ['start-here']
 
 [[levels]]
-	title = "start-here"
-	branch = "start-here"
-	solution_checker = "hooks/checkers/start-here.sh"
-	flags = ["merge-1"]
+title = 'start-here'
+branch = 'start-here'
+solution_checker = 'hooks/checkers/start-here.sh'
+flags = ['basic-1']
 
 [[levels]]
-	title = "merge-1"
-	branch = "fizzling-vulture-pedial"
-	solution_checker = "hooks/checkers/merge-1.sh"
-	flags = ["merge-2", "log-1"]
+title = 'basic-1'
+branch = 'scorpion-treenware-gestatory'
+solution_checker = 'hooks/checkers/basic-1.sh'
+flags = ['basic-2']
 
 [[levels]]
-	title = "merge-2"
-	branch = "ironish-quartzic-brahmas"
-	solution_checker = "hooks/checkers/merge-2.sh"
-	flags = ["merge-3"]
-
-[[levels]]
-	title = "log-1"
-	branch = "akmite-radicle-garce"
-	solution_checker = "echo No pushing in this stage. ; exit 1"
-	flags = ["log-2"]
-
-[[levels]]
-	title = "log-2"
-	branch = "alibies-listwork-homotaxy"
-	solution_checker = "hooks/checkers/log-2.sh"
-	flags = ["log-3"]
-
+title = 'basic-2'
+branch = 'sidespins-areae-regalio'
+solution_checker = 'hooks/checkers/basic-2.sh'
+flags = ['merge-1']

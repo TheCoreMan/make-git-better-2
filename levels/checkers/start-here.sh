@@ -17,7 +17,6 @@ pushd $dump_dir
     fi
 popd
 
-git fetch --tags --quiet  # get all the tags but don't show them to the user
 # Check how many commits the user needed - should be two (the user commit + merge commit)!
 commit_amount=$( git log start-here-tag..$new --oneline | wc -l )
 if [ $commit_amount -ne 1 ];

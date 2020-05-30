@@ -1,16 +1,21 @@
 #!/bin/bash
 
+source $(dirname $0)/checkers/common.sh
+
 read old new ref < /dev/stdin
 
 branch_name=$(echo $ref | awk 'BEGIN \{ FS = "/" } ; \{ print $NF }')
 
 print_flags () \{
+	print_flag_icon
 	if [[ $# -eq 1 ]] 
 		then echo "You won! The flag is "$1
 	else
 		echo "You won! The flags are "$@
 	fi
 }
+
+print_seperator
 
 case $branch_name in
 {{ for level in levels }}{level.branch})

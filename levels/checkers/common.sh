@@ -22,3 +22,29 @@ pushd () {
 popd () {
     command popd "$@" > /dev/null
 }
+
+print_flag_icon() {
+flag_icon="
+        ()__
+        ||  Z__
+        ||  |   Z____
+        ||  |   |    |
+        ||  |   |    |
+        ||__|   |    |
+        ||  /___|    |
+        ||      /____/
+        ||
+        ||
+        ||
+        /\\                
+    ___/  \\___
+"
+
+	echo "$flag_icon"
+}
+
+print_seperator() {
+	echo
+	echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+	echo
+}

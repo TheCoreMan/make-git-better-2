@@ -1,4 +1,4 @@
-from ubuntu:latest
+FROM ubuntu:latest
 
 # Install dependencies.
 RUN apt update -y
@@ -29,8 +29,7 @@ RUN chown player:player /home/player/.zshrc
 RUN chmod 770 /home/player/.zshrc
 
 RUN mkdir /var/run/sshd
-RUN echo 'ClientAliveInterval 60' >> /etc/ssh/sshd_config
-RUN echo 'ClientAliveCountMax 10' >>  /etc/ssh/sshd_config
+COPY build/sshd_config /etc/ssh/sshd_config
 COPY build/login_banner.txt /etc/motd
 
 # Set up the git server so that the player can run git clone gamemaster@localhost:/home/gamemaster/ctf-repo
@@ -39,6 +38,10 @@ RUN git clone --bare https://github.com/ShayNehmad/make-git-better-levels.git /h
 COPY build/gamemaster_entrypoint.sh /home/gamemaster
 RUN chown gamemaster:gamemaster /home/gamemaster/gamemaster_entrypoint.sh
 RUN chmod 770 /home/gamemaster/gamemaster_entrypoint.sh
+# Make sure that gamemaster owns all of their files
+RUN chown -R gamemaster:gamemaster /home/gamemaster
+# This arg invalidates cache from here on forward. use the current time (no spaces) as a build arg.
+ARG CACHE_DATE=not_a_date
 RUN su -c "/home/gamemaster/gamemaster_entrypoint.sh" - gamemaster
 # Set up the hooks for the actual gameplay in the repo
 COPY levels/checkers /home/gamemaster/ctf-repo/hooks/checkers

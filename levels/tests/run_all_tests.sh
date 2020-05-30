@@ -14,9 +14,9 @@ for test_script in $tests_dir/test-*; do
     echo Testing $test_script
     if bash $test_script; 
     then
-        echo -e "Test ${test_script} ${GREEN}passed${NC}"
+        echo -e "TEST RESULTS: Test ${test_script} ${GREEN}passed${NC}"
     else 
-        echo -e "Test ${test_script} ${RED}failed${NC}"
+        echo -e "TEST RESULTS: Test ${test_script} ${RED}failed${NC}"
     fi
 done
 

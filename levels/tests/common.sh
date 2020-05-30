@@ -13,12 +13,12 @@ setup_repo_for_test() {
 check_results() {
     if [ $(grep "You won" push_result | wc -l) -gt 0 ]; 
     then
-        git reset --hard 
-        git clean -f -d
+        git reset --hard > /dev/null 2>&1
+        git clean -f -d > /dev/null 2>&1
         exit 0
     else 
-        git reset --hard
-        git clean -f -d
+        git reset --hard > /dev/null 2>&1
+        git clean -f -d > /dev/null 2>&1
         exit 1
     fi
 }

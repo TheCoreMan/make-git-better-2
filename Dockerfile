@@ -29,11 +29,7 @@ RUN chown player:player /home/player/.zshrc
 RUN chmod 770 /home/player/.zshrc
 
 RUN mkdir /var/run/sshd
-RUN echo 'ClientAliveInterval 60' >> /etc/ssh/sshd_config
-RUN echo 'ClientAliveCountMax 10' >>  /etc/ssh/sshd_config
-RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
-RUN echo 'UsePAM no' >> /etc/ssh/sshd_config
-RUN echo 'PrintMotd yes' >> /etc/ssh/sshd_config
+COPY build/sshd_config /etc/ssh/sshd_config
 COPY build/login_banner.txt /etc/motd
 
 # Set up the git server so that the player can run git clone gamemaster@localhost:/home/gamemaster/ctf-repo

@@ -28,4 +28,3 @@ number_of_files_changed=$( git diff --stat $old $new | grep "files changed" | aw
 if [[ $number_of_files_changed -ne 2 ]]
     then reject-solution "More than 2 files were changed! Only add alice.txt and bob.txt. Check out the original branch and try again.";
 fi
-

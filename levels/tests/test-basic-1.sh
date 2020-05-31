@@ -2,15 +2,17 @@
 
 source $(dirname $0)/common.sh
 
-level_branch={branch}
-level_title={title}
+level_branch=scorpion-treenware-gestatory
+level_title=basic-1
 
 echo testing level $level_title branch $level_branch
 
 git checkout $level_branch
 git clean -f -d
 
-# PUT TEST CODE HERE, like git add + git commit
+# Actual test code
+git rm deleteme.txt
+git commit -m "Testing basic-1."
 
 git push > push_result 2>&1
 

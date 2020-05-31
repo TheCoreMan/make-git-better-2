@@ -13,6 +13,9 @@ print_flags () \{
 	else
 		echo "You won! The flags are "$@
 	fi
+	print_seperator
+	# By default, we want to not push
+	exit 1	
 }
 
 print_seperator

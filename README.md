@@ -109,7 +109,22 @@ cargo test
 
 ### Test levels
 
-* [ ] TODO @ShayNehmad
+Login as user `tester` to the built Docker and then:
+
+```sh
+cd tests
+./run_all_tests.sh 2>&1 | grep "TEST RESULTS"
+```
+
+Should print something like:
+
+```sh
+tester@c2faccc28434:~/tests
+> ./run_all_tests.sh 2>&1 | grep "TEST RESULTS"
+TEST RESULTS: Test /home/tester/tests/test-basic-1.sh passed
+TEST RESULTS: Test /home/tester/tests/test-basic-2.sh passed
+TEST RESULTS: Test /home/tester/tests/test-start-here.sh passed
+```
 
 ## Develop
 

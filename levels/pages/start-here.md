@@ -1,5 +1,5 @@
 ---
-title: "basic-1"
+title: "start-here"
 date: 2020-05-23T13:04:22+03:00
 draft: false
 scripts: 
@@ -27,9 +27,18 @@ This stage is just a warm-up and it shouldn't be confusing, difficult, or requir
 
 You passed this stage of the CTF. *Check out* the next stage 👀
 
+⚠ _Note:_ Don't worry if you see the following error message:
+
+```sh
+ ! [remote rejected] start-here -> start-here (pre-receive hook declined)
+error: failed to push some refs to 'gamemaster@localhost:~/ctf-repo'
+```
+
+It's on purpose. The important part is that you got the flag 🚩
+
 ## 🧩 Hints
 
-Click on hints to see them.
+Click on hints to reveal them.
 
 {{% expand "How can I add files to the filesystem?" %}}
 To create files you can use the `touch` command.

@@ -19,7 +19,7 @@ There's a script called `runme.py`. Try to run it.
 
 ## 🧩 Hints
 
-Click on the hint to see it.
+Click on hints to reveal them.
 
 {{% expand "How do I run it?" %}}
 `./runme.py`

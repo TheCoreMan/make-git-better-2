@@ -66,7 +66,7 @@ docker run --detach --name mgbtest --publish 7777:22 mgb:0.1
 ##### Useful oneliner
 
 ```sh
-docker rm -f mgbtest && docker build --build-arg CACHE_DATE=$(date +%Y-%m-%d:%H:%M:%S) --tag mgb:0.1 . && docker run --detach --name mgbtest --publish 7777:22 mgb:0.1
+docker rm -f mgbtest && docker build --build-arg CACHE_DATE=$(date +%Y-%m-%d:%H:%M:%S%z) --tag mgb:0.1 . && docker run --detach --name mgbtest --publish 7777:22 mgb:0.1
 ```
 
 ##### Connect to the running instance

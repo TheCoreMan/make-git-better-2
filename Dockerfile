@@ -57,7 +57,8 @@ RUN chmod 770 /home/gamemaster/gamemaster_entrypoint.sh
 # Make sure that gamemaster owns all of their files
 RUN chown --recursive gamemaster:gamemaster /home/gamemaster
 # This arg invalidates cache from here on forward. use the current time (no spaces) as a build arg.
-ARG CACHE_DATE=not_a_date
+ARG CACHE_DATE
+RUN echo "This CTF server was built at "$CACHE_DATE"." >> /etc/motd
 RUN ls -la "/home/gamemaster"
 RUN su -c "/home/gamemaster/gamemaster_entrypoint.sh" - gamemaster
 # Set up the hooks for the actual gameplay in the repo

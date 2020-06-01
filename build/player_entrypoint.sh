@@ -16,6 +16,6 @@ cat ~/.ssh/id_rsa.pub >> /tmp/id_rsa.player.pub
 echo "Setting up zsh"
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-
 git config --global user.email "player@mrnice.dev"
 git config --global user.name "CTF player"
+git config --global core.editor vim

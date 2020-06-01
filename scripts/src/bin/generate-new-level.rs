@@ -134,7 +134,7 @@ fn main() {
     };
     let test_info = LevelTemplateInfo {
         template_path: args.test_template_path,
-        output_path: args.levels_directory.join("tests").join(format!("{}.{}", &new_level.title, "sh")),
+        output_path: args.levels_directory.join("tests").join(format!("test-{}.{}", &new_level.title, "sh")),
     };
     let page_info = LevelTemplateInfo {
         template_path: args.page_template_path,

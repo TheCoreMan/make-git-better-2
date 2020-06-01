@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 set -x
+set -e
 
 if [[ ! $(whoami) == "player" ]] 
 	then echo "I'm not the player"; exit 1; 

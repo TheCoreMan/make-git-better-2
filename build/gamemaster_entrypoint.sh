@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -x
+set -e
 
 if [[ ! $(whoami) == "gamemaster" ]] 
 	then echo "I'm not the gamemaster"; exit 1; 

@@ -11,7 +11,7 @@ git checkout $level_branch
 git clean -f -d
 
 # PUT TEST CODE HERE, like git add + git commit
-if [[ $(git log -n 3 | tail -n 1) == *"insatiably-skyjackers-program"*]]; then 
+if [[ $(git log -n 3 | tail -n 1) == *"insatiably-skyjackers-program"* ]] ; then 
     # manual pass (no push)
     exit 0 
 else

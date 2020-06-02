@@ -5,7 +5,7 @@ source $(dirname $0)/common.sh
 level_branch=scorpion-treenware-gestatory
 level_title=basic-1
 
-echo testing level $level_title branch $level_branch
+test_log "testing level $level_title branch $level_branch"
 
 git checkout $level_branch
 git clean -f -d

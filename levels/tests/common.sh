@@ -1,5 +1,10 @@
 #!/bin/bash
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
 setup_repo_for_test() {
     test_dir=test_$(date +%Y%m%d_%H%M%S)
     mkdir $test_dir
@@ -26,4 +31,8 @@ check_results() {
 teardown() {
     popd
     popd
+}
+
+test_log () {
+    echo -e "${BLUE}TESTLOG${NC}: $1"
 }

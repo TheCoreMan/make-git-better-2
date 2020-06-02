@@ -30,3 +30,9 @@ flags = [
     'merge-2',
     'log-1',
 ]
+
+[[levels]]
+title = 'merge-2'
+branch = 'poseuse-citronwood-manganese'
+solution_checker = 'hooks/checkers/merge-2.sh'
+flags = ['merge-3']

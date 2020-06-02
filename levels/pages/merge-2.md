@@ -1,5 +1,5 @@
 ---
-title: "merge-1"
+title: "merge-2"
 date: 2020-05-23T13:04:22+03:00
 draft: false
 scripts: 
@@ -17,20 +17,22 @@ twitter:
 
 There's a script called `runme.py`. Try to run it.
 
-![staircase](https://media.giphy.com/media/6laM7KdXvzBba/giphy.gif)
+*What's different this time?*
+
+![Fast forward](https://media.giphy.com/media/xT5LMGz9PXEzZqvKmI/giphy.gif "Fast forward")
 
 ## 🧩 Hints
 
-Click on hints to reveal them.
-
-{{% expand "How do I run it?" %}}
-`./runme.py`
-
-See why in [this AskUbuntu thread](https://askubuntu.com/questions/320632/why-do-i-need-to-type-before-executing-a-program-in-the-current-directory).
-{{% /expand %}}
+Click on the hint to see it.
 
 {{% expand "I ran it, now what?" %}}
 Well, it didn't work, and raised an exception. What does the error say?
+{{% /expand %}}
+
+{{% expand "OMG I'm in a screen and I don't know how to get out" %}}
+[How to close the commit message editor.](https://stackoverflow.com/q/13239368/4119906)
+
+The default editor on this machine is `vim`, but you [can change that](https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration#_core_editor).
 {{% /expand %}}
 
 {{% expand "Useful commands for this level" %}}

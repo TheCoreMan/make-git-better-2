@@ -64,3 +64,7 @@ print_seperator() {
 get_commit_of() {
     echo $(git rev-list -n 1 $1)
 }
+
+how_many_parents() {
+    echo $(git cat-file -p $1 | grep parent | wc -l)
+}

@@ -2,7 +2,7 @@
 
 tests_dir=$(realpath $(dirname $0))
 
-source $tests_dir/common.sh
+source $tests_dir/tests-lib.sh
 
 setup_repo_for_test
 

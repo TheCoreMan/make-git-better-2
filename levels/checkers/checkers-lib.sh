@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This file has common functions for all the checkers and the pre-receive hook file.
+
 # Pass rejection reason as first parameter.
 # Example usage:
 # if [ ! -f runme.py ];

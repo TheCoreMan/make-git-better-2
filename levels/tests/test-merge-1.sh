@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $(dirname $0)/common.sh
+source $(dirname $0)/tests-lib.sh
 
 level_branch=macrochiropteran-jupon-lutecium
 level_title=merge-1

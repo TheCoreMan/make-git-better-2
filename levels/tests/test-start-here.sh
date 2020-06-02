@@ -1,11 +1,11 @@
 #!/bin/bash
 
-source $(dirname $0)/common.sh
+source $(dirname $0)/tests-lib.sh
 
 level_branch=start-here
 level_title=start-here
 
-echo testing level $level_title branch $level_branch
+test_log "testing level $level_title branch $level_branch"
 
 git checkout $level_branch
 git clean -f -d

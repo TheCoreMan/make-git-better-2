@@ -25,9 +25,9 @@ Git CTF 🚩 but good this time.
 
 ## Dependencies
 
-* Rust
-* Docker
-* Python 3.6 (for docker TCP switchboard)
+- Rust
+- Docker
+- Python 3.6 (for docker TCP switchboard)
 
 ## Build
 
@@ -113,17 +113,30 @@ Login as user `tester` to the built Docker and then:
 
 ```sh
 cd tests
-./run_all_tests.sh 2>&1 | grep "TEST RESULTS"
+./run_all_tests.sh 2>&1 | grep "TESTLOG"
 ```
 
 Should print something like:
 
 ```sh
-tester@c2faccc28434:~/tests
-> ./run_all_tests.sh 2>&1 | grep "TEST RESULTS"
-TEST RESULTS: Test /home/tester/tests/test-basic-1.sh passed
-TEST RESULTS: Test /home/tester/tests/test-basic-2.sh passed
-TEST RESULTS: Test /home/tester/tests/test-start-here.sh passed
+tester@9fd701bf937c:~/tests
+> ./run_all_tests.sh 2>&1 | grep "TESTLOG"
+TESTLOG: Testing /home/tester/tests/test-basic-1.sh
+TESTLOG: testing level basic-1 branch scorpion-treenware-gestatory
+TESTLOG: Test /home/tester/tests/test-basic-1.sh passed
+TESTLOG: Testing /home/tester/tests/test-basic-2.sh
+TESTLOG: testing level basic-2 branch sidespins-areae-regalio
+TESTLOG: Test /home/tester/tests/test-basic-2.sh passed
+TESTLOG: Testing /home/tester/tests/test-merge-1.sh
+TESTLOG: testing level merge-1 branch macrochiropteran-jupon-lutecium
+TESTLOG: Test /home/tester/tests/test-merge-1.sh passed
+TESTLOG: Testing /home/tester/tests/test-merge-2.sh
+TESTLOG: testing level merge-2 branch poseuse-citronwood-manganese
+TESTLOG: Test /home/tester/tests/test-merge-2.sh passed
+TESTLOG: Testing /home/tester/tests/test-start-here.sh
+TESTLOG: testing level start-here branch start-here
+TESTLOG: Test /home/tester/tests/test-start-here.sh passed
+TESTLOG: Out of 5 tests, 5 passed and 0 failed.
 ```
 
 ## Develop

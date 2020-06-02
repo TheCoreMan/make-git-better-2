@@ -2,22 +2,26 @@
 
 tests_dir=$(realpath $(dirname $0))
 
-source $tests_dir/common.sh
+source $tests_dir/tests-lib.sh
 
 setup_repo_for_test
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
+total=$(find $tests_dir/test-* | wc -l)
+passed=0
+failed=0
 
 for test_script in $tests_dir/test-*; do
-    echo Testing $test_script
+    test_log "Testing $test_script"
     if bash $test_script; 
     then
-        echo -e "TEST RESULTS: Test ${test_script} ${GREEN}passed${NC}"
+        test_log "Test ${test_script} ${GREEN}passed${NC}"
+        passed=$((passed + 1))
     else 
-        echo -e "TEST RESULTS: Test ${test_script} ${RED}failed${NC}"
+        test_log "Test ${test_script} ${RED}failed${NC}"
+        passed=$((failed + 1))
     fi
 done
+
+test_log "Out of ${BLUE}$total tests${NC}, ${GREEN}$passed passed${NC} and ${RED}$failed failed${NC}."
 
 teardown

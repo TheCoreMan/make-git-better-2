@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $(dirname $0)/common.sh
+source $(dirname $0)/checkers-lib.sh
 
 read old new ref < /dev/stdin
 

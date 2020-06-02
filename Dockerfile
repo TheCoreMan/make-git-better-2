@@ -1,5 +1,9 @@
 FROM ubuntu:latest
 
+# Users will log into this machine, so we need to unminimize it.
+# See https://wiki.ubuntu.com/Minimal
+RUN yes | unminimize
+
 # Install dependencies.
 RUN apt update -y
 RUN DEBIAN_FRONTEND="noninteractive" apt install -y tzdata
@@ -13,7 +17,8 @@ RUN apt install -y \
 	apt-utils \
 	iputils-ping \
 	zsh \
-	tmux
+	tmux \
+	man
 
 # Create the required users. The game master is the `git` account, and the player is the user's account
 RUN useradd --comment "GameMaster account" --create-home --password $(mkpasswd -m sha-512 94+wings+STRONG+mountain+35) gamemaster

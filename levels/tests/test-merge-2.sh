@@ -2,19 +2,16 @@
 
 source $(dirname $0)/tests-lib.sh
 
-level_branch=sidespins-areae-regalio
-level_title=basic-2
+level_branch=poseuse-citronwood-manganese
+level_title=merge-2
 
 test_log "testing level $level_title branch $level_branch"
 
 git checkout $level_branch
 git clean -f -d
 
-# Actual test code
-mkdir newdir
-touch newdir/f1 newdir/f2
-git add newdir
-git commit -m "Testing basic-2."
+# PUT TEST CODE HERE, like git add + git commit
+git merge origin/cannoneer-dephlegm-holoptychius -m "test merge 2"
 
 git push > push_result 2>&1
 

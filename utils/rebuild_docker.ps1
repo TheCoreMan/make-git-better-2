@@ -5,5 +5,5 @@ cargo run --bin generate-pre-receive-hook -- --verbose ..\levels\game-config.tom
 Pop-Location
 
 & docker rm mgbtest -f
-& docker build --tag mgb:0.1 --build-arg CACHE_DATE=$(date +%Y-%m-%d:%H:%M:%S) .
+& docker build --tag mgb:0.1 --build-arg CACHE_DATE=$(date +%Y-%m-%d:%H:%M:%S%z) .
 & docker run --detach --name mgbtest --publish 7777:22 mgb:0.1

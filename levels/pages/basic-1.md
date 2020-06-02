@@ -19,7 +19,7 @@ Sometimes we need to delete files, not only add them. But in `git` deleting a fi
 
 ## 🧩 Hints
 
-Click on hints to see them.
+Click on hints to reveal them.
 
 {{% expand "Hint 0" %}}
 A useful command for this levels is `git rm`.

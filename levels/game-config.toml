@@ -21,3 +21,12 @@ title = 'basic-2'
 branch = 'sidespins-areae-regalio'
 solution_checker = 'hooks/checkers/basic-2.sh'
 flags = ['merge-1']
+
+[[levels]]
+title = 'merge-1'
+branch = 'macrochiropteran-jupon-lutecium'
+solution_checker = 'hooks/checkers/merge-1.sh'
+flags = [
+    'merge-2',
+    'log-1',
+]

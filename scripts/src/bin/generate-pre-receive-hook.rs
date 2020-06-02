@@ -44,7 +44,7 @@ fn replace_flags_with_branch_names(game_config: &mut GameConfig) {
             match found {
                 Some(x) => {
                     debug!("replacing {} with {}", flag, x.branch);
-                    new_flags.push(String::from(&x.branch));
+                    new_flags.push(format!("{} ({})", String::from(&x.branch), x.title));
                 }
                 None => {
                     debug!("flag {} is final", flag);

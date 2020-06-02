@@ -22,6 +22,6 @@ print_seperator
 
 case $branch_name in
 {{ for level in levels }}{level.branch})
-    echo $old $new $ref | {level.solution_checker} && print_flags{{ for levelflag in level.flags }} {levelflag}{{ endfor }}
+    echo $old $new $ref | {level.solution_checker} && print_flags{{ for levelflag in level.flags }} "{levelflag}"{{ endfor }}
     ;;
 {{ endfor }}esac

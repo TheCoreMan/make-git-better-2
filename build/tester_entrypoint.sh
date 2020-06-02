@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 set -x
+set -e
 
 if [[ ! $(whoami) == "tester" ]] 
 	then echo "I'm not the tester"; exit 1; 

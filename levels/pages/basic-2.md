@@ -21,7 +21,7 @@ We can also add and delete directories from `git`, not only files. This level ab
 
 ## 🧩 Hints
 
-Click on the hint to see it.
+Click on hints to reveal them.
 
 {{% expand "Hint 0" %}}
 To create a directory, run `mkdir`.

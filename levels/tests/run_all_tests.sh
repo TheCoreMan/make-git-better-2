@@ -18,7 +18,7 @@ for test_script in $tests_dir/test-*; do
         passed=$((passed + 1))
     else 
         test_log "Test ${test_script} ${RED}failed${NC}"
-        passed=$((failed + 1))
+        failed=$((failed + 1))
     fi
 done
 

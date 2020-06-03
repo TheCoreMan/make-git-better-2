@@ -36,3 +36,33 @@ title = 'merge-2'
 branch = 'poseuse-citronwood-manganese'
 solution_checker = 'hooks/checkers/merge-2.sh'
 flags = ['merge-3']
+
+[[levels]]
+title = 'log-1'
+branch = 'turbulator-feere-reinclined'
+solution_checker = 'hooks/checkers/log-1.sh'
+flags = ['log-2']
+
+[[levels]]
+title = 'log-2'
+branch = 'insatiably-skyjackers-program'
+solution_checker = 'hooks/checkers/log-2.sh'
+flags = ['log-3']
+
+[[levels]]
+title = 'log-3'
+branch = 'originates-anagyrine-untolerative'
+solution_checker = 'hooks/checkers/log-3.sh'
+flags = ['log-4']
+
+[[levels]]
+title = 'log-4'
+branch = 'belialist-interlaying-mize'
+solution_checker = 'hooks/checkers/log-4.sh'
+flags = ['log-5']
+
+[[levels]]
+title = 'log-5'
+branch = 'pamphletary-harnessing-petticoaterie'
+solution_checker = 'hooks/checkers/log-5.sh'
+flags = []

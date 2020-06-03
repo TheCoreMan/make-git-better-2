@@ -1,4 +1,5 @@
 Set-PSDebug -Trace 2
+$ErrorActionPreference = "Stop"
 
 Push-Location -Path .\scripts
 cargo run --bin generate-pre-receive-hook -- --verbose ..\levels\game-config.toml .\src\bin\templates\hook.tmpl

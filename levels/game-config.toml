@@ -66,3 +66,9 @@ title = 'log-5'
 branch = 'pamphletary-harnessing-petticoaterie'
 solution_checker = 'hooks/checkers/log-5.sh'
 flags = []
+
+[[levels]]
+title = 'merge-3'
+branch = 'twee-enfamish-stropharia'
+solution_checker = 'hooks/checkers/merge-3.sh'
+flags = ['merge-4']

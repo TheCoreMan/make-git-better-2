@@ -71,4 +71,16 @@ flags = []
 title = 'merge-3'
 branch = 'twee-enfamish-stropharia'
 solution_checker = 'hooks/checkers/merge-3.sh'
-flags = ['merge-4']
+flags = [
+    'merge-4',
+    'revert-1',
+]
+
+[[levels]]
+title = 'revert-1'
+branch = 'lomentaceous-mididae-hexadecane'
+solution_checker = 'hooks/checkers/revert-1.sh'
+flags = [
+    'rebase-1',
+    'tag-1',
+]

@@ -84,3 +84,9 @@ flags = [
     'rebase-1',
     'tag-1',
 ]
+
+[[levels]]
+title = 'merge-4'
+branch = 'multichord-ethicalism-fenestration'
+solution_checker = 'hooks/checkers/merge-4.sh'
+flags = ['merge-5']

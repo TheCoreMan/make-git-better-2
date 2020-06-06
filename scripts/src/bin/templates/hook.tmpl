@@ -11,7 +11,10 @@ print_flags () \{
 	if [[ $# -eq 1 ]] 
 		then echo "You won! The flag is "$1
 	else
-		echo "You won! The flags are "$@
+		echo "You won! The flags are"
+		for flag in "$@"; do
+			echo "$flag"
+		done
 	fi
 	print_seperator
 	# By default, we want to not push

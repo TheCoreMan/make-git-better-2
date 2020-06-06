@@ -70,3 +70,7 @@ get_commit_of() {
 how_many_parents() {
     echo $(git cat-file -p $1 | grep parent | wc -l)
 }
+
+get_commit_message() {
+    echo $(git --no-pager log -1 --pretty=%B $1)
+}

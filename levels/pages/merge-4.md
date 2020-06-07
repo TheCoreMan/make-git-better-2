@@ -36,3 +36,7 @@ This time, both sides are missing some parts. You'll have to manually combine th
 {{% expand "Useful commands for this level" %}}
 `git merge`, `git mergetool`, `git checkout`, `git status`.
 {{% /expand %}}
+
+{{% expand "Point me to the documentation 📚" %}}
+[Basic merge conflicts](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging#_basic_merge_conflicts).
+{{% /expand %}}

@@ -36,3 +36,7 @@ In this case the correct form is `you're`.
 {{% expand "Useful commands for this level" %}}
 `git merge`, `git checkout`, `git status`.
 {{% /expand %}}
+
+{{% expand "Point me to the documentation 📚" %}}
+[Basic merge conflicts](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging#_basic_merge_conflicts).
+{{% /expand %}}

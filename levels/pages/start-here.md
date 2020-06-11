@@ -23,9 +23,11 @@ This stage is just a warm-up and it shouldn't be confusing, difficult, or requir
 2. Commit your changes (should be only one commit!).
 3. Push your changes to the remote repo.
 
+![Started from the bottom](https://media.giphy.com/media/TGamxxMMiaWw8/giphy.gif "Started from the bottom")
+
 ### What do I do with the flag
 
-You passed this stage of the CTF. *Check out* the next stage 👀
+You passed this stage of the CTF, so ***check out*** the next stage 👀
 
 ⚠ _Note:_ Don't worry if you see the following error message:
 
@@ -34,7 +36,7 @@ You passed this stage of the CTF. *Check out* the next stage 👀
 error: failed to push some refs to 'gamemaster@localhost:~/ctf-repo'
 ```
 
-It's on purpose. The important part is that you got the flag 🚩
+It's on purpose. The important part is that you got the flag 🚩 Make sure you copy and save the flags somewhere!
 
 ## 🧩 Hints
 

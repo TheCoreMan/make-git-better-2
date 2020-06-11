@@ -17,14 +17,16 @@ twitter:
 
 Sometimes we need to delete files, not only add them. But in `git` deleting a file means `add`-ing the deletion to the staging area and committing that change.
 
+![delete](https://media.giphy.com/media/9xlzhm7XZFaja1E6QX/giphy.gif "delete")
+
 ## 🧩 Hints
 
 Click on hints to reveal them.
 
-{{% expand "Hint 0" %}}
-A useful command for this levels is `git rm`.
+{{% expand "Useful commands for this level" %}}
+`git rm`, `git status`, `git commit`.
 {{% /expand %}}
 
-{{% expand "Hint 1" %}}
+{{% expand "Nudge me in the right direction?" %}}
 [StackOverflow link](https://stackoverflow.com/questions/2047465/how-can-i-delete-a-file-from-a-git-repository).
 {{% /expand %}}

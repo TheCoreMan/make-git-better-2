@@ -96,3 +96,9 @@ title = 'merge-5'
 branch = 'reappraise-veratroyl-garfishes'
 solution_checker = 'hooks/checkers/merge-5.sh'
 flags = ['merge-6']
+
+[[levels]]
+title = 'rebase-1'
+branch = 'parallelizing-barnhardtite-base'
+solution_checker = 'hooks/checkers/rebase-1.sh'
+flags = ['rebase-2']

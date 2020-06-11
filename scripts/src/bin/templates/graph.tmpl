@@ -4,12 +4,20 @@
     var DOTstring = `
 	    {levels_graph_as_dot | unescaped}
 `;
+
     var parsedData = vis.parseDOTNetwork(DOTstring);
 
     var data = \{
 	  nodes: parsedData.nodes,
 	  edges: parsedData.edges
     }
+
+    // Find the currently selected level node
+    currentLabel = document.location.pathname.split("/")[2];
+    currentNodeIndex = parsedData.nodes.findIndex(node => node.label == currentLabel);
+    currentNode = parsedData.nodes[currentNodeIndex]
+    // Add a "you are here" pin to the node graph
+    parsedData.nodes[currentNodeIndex].label = "📍 " + currentNode.label;
 
     // create a network
     var container = document.getElementById('mynetwork');
@@ -38,13 +46,32 @@
 
     // initialize your network!
     var network = new vis.Network(container, data, options);
+
+    // Add the interactive navigation thing. When clicking on a node, move to that page.
     network.on("click", function(params) \{
         if (1 == params.nodes.length) \{
             levelName = data.nodes[params.nodes[0]].label;
-            console.log("Clicked on one node, it's this node: " + levelName);
-	    resulting_url = document.location.origin + "/levels/" + levelName;
-	    console.log("Resulting URL: " + resulting_url);
+	        resulting_url = document.location.origin + "/levels/" + levelName;
             document.location.href = resulting_url;
         }
+    });
+
+    // Make the current node highlighted
+    network.body.nodes[currentNode.id].selected = true;
+    network.redraw();
+
+    network.once("beforeDrawing", function() \{
+        network.focus(currentNode.id, \{
+        scale: 5
+        });
+    });
+
+    network.once("afterDrawing", function() \{
+        network.fit(\{
+            animation: \{
+                duration: 1200,
+                easingFunction: "easeOutQuint"
+            }
+        });
     });
 </script>

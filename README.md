@@ -113,31 +113,57 @@ Login as user `tester` to the built Docker and then:
 
 ```sh
 cd tests
-./run_all_tests.sh 2>&1 | grep "TESTLOG"
+./run_all_tests.sh
 ```
 
 Should print something like:
 
 ```sh
-tester@9fd701bf937c:~/tests
-> ./run_all_tests.sh 2>&1 | grep "TESTLOG"
+tester@ad6145e90679:~/tests
+> ./run_all_tests.sh
 TESTLOG: Testing /home/tester/tests/test-basic-1.sh
 TESTLOG: testing level basic-1 branch scorpion-treenware-gestatory
 TESTLOG: Test /home/tester/tests/test-basic-1.sh passed
 TESTLOG: Testing /home/tester/tests/test-basic-2.sh
 TESTLOG: testing level basic-2 branch sidespins-areae-regalio
 TESTLOG: Test /home/tester/tests/test-basic-2.sh passed
+TESTLOG: Testing /home/tester/tests/test-log-1.sh
+TESTLOG: testing level log-1 branch turbulator-feere-reinclined
+TESTLOG: Test /home/tester/tests/test-log-1.sh passed
+TESTLOG: Testing /home/tester/tests/test-log-2.sh
+TESTLOG: testing level log-2 branch insatiably-skyjackers-program
+TESTLOG: Test /home/tester/tests/test-log-2.sh passed
+TESTLOG: Testing /home/tester/tests/test-log-3.sh
+TESTLOG: testing level log-3 branch originates-anagyrine-untolerative
+TESTLOG: Test /home/tester/tests/test-log-3.sh passed
+TESTLOG: Testing /home/tester/tests/test-log-4.sh
+TESTLOG: testing level log-4 branch belialist-interlaying-mize
+TESTLOG: Test /home/tester/tests/test-log-4.sh passed
 TESTLOG: Testing /home/tester/tests/test-merge-1.sh
 TESTLOG: testing level merge-1 branch macrochiropteran-jupon-lutecium
 TESTLOG: Test /home/tester/tests/test-merge-1.sh passed
 TESTLOG: Testing /home/tester/tests/test-merge-2.sh
 TESTLOG: testing level merge-2 branch poseuse-citronwood-manganese
 TESTLOG: Test /home/tester/tests/test-merge-2.sh passed
+TESTLOG: Testing /home/tester/tests/test-merge-3.sh
+TESTLOG: testing level merge-3 branch twee-enfamish-stropharia
+TESTLOG: Test /home/tester/tests/test-merge-3.sh passed
+TESTLOG: Testing /home/tester/tests/test-merge-4.sh
+TESTLOG: testing level merge-4 branch multichord-ethicalism-fenestration
+TESTLOG: Test /home/tester/tests/test-merge-4.sh passed
+TESTLOG: Testing /home/tester/tests/test-merge-5.sh
+TESTLOG: testing level merge-5 branch reappraise-veratroyl-garfishes
+TESTLOG: Test /home/tester/tests/test-merge-5.sh passed
+TESTLOG: Testing /home/tester/tests/test-revert-1.sh
+TESTLOG: testing level revert-1 branch lomentaceous-mididae-hexadecane
+TESTLOG: Test /home/tester/tests/test-revert-1.sh passed
 TESTLOG: Testing /home/tester/tests/test-start-here.sh
 TESTLOG: testing level start-here branch start-here
 TESTLOG: Test /home/tester/tests/test-start-here.sh passed
-TESTLOG: Out of 5 tests, 5 passed and 0 failed.
+TESTLOG: Out of 13 tests, 13 passed and 0 failed.
 ```
+
+> Note: Can also run with -v to see all `git` output and random `echo`s as well.
 
 ## Develop
 

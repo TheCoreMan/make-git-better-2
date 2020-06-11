@@ -48,7 +48,7 @@ fn replace_flags_with_branch_names(game_config: &mut GameConfig) {
                 }
                 None => {
                     debug!("flag {} is final", flag);
-                    new_flags.push(flag.to_string());
+                    new_flags.push(format!("{} (final)", flag.to_string()));
                 }
             }
         }
@@ -81,7 +81,11 @@ mod tests {
         replace_flags_with_branch_names(&mut game_conf);
         assert_eq!(
             game_conf.levels[0].flags[0],
-            "second_level_branch".to_string()
+            "second_level_branch (second_level_title)".to_string()
+        );
+        assert_eq!(
+            game_conf.levels[1].flags[0],
+            "c (final)".to_string()
         );
     }
 }

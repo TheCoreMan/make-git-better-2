@@ -3,7 +3,7 @@ title: "merge-4"
 date: 2020-05-23T13:04:22+03:00
 draft: false
 scripts: 
-  - "https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+  - "/js/vis-network.min.js"
 twitter:
   card: "summary_large_image"
   site: "@ShayNehmad"
@@ -35,4 +35,8 @@ This time, both sides are missing some parts. You'll have to manually combine th
 
 {{% expand "Useful commands for this level" %}}
 `git merge`, `git mergetool`, `git checkout`, `git status`.
+{{% /expand %}}
+
+{{% expand "Point me to the documentation 📚" %}}
+[Basic merge conflicts](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging#_basic_merge_conflicts).
 {{% /expand %}}

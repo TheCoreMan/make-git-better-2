@@ -3,7 +3,7 @@ title: "start-here"
 date: 2020-05-23T13:04:22+03:00
 draft: false
 scripts: 
-  - "https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+  - "/js/vis-network.min.js"
 twitter:
   card: "summary_large_image"
   site: "@ShayNehmad"

@@ -101,10 +101,16 @@ flags = ['merge-6']
 title = 'tag-1'
 branch = 'redamage-bundh-passerina'
 solution_checker = 'hooks/checkers/tag-1.sh'
-flags = ['tag-2']
+flags = ['tag-2', 'hooks-1']
 
 [[levels]]
 title = 'tag-2'
 branch = 'individually-nonintroversive-chalcomancy'
 solution_checker = 'hooks/checkers/tag-2.sh'
 flags = []
+
+[[levels]]
+title = 'hooks-1'
+branch = 'hands-trooshlach-nongassy'
+solution_checker = 'hooks/checkers/hooks-1.sh'
+flags = ['remote-1', 'hooks-2']

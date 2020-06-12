@@ -27,15 +27,16 @@ then
 	tag_name=$(echo $ref | awk 'BEGIN \{ FS = "/" } ; \{ print $NF }')
 	echo "Pushed a tag: $tag_name"
 	if [[ $tag_name == "my-new-tag" ]]; then
-		if [[ $new == get_commit_of redamage-bundh-passerina-tag ]]
-		print_flags "individually-nonintroversive-chalcomancy (tag-2)"
+		if [[ $(get_commit_of $new) == $(get_commit_of redamage-bundh-passerina-tag) ]]; then
+			print_flags "individually-nonintroversive-chalcomancy (tag-2)" "hands-trooshlach-nongassy (hooks-1)"
+		fi
 	fi
 fi
 
 if [[ $ref == "refs/heads/"* ]]; 
 then
 	branch_name=$(echo $ref | awk 'BEGIN \{ FS = "/" } ; \{ print $NF }')
-	echo "Pushed a tag: $branch_name"
+	echo "Pushed a branch: $branch_name"
 
 	case $branch_name in
 	{{ for level in levels }}{level.branch})

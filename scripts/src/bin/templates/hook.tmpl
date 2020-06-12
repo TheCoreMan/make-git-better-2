@@ -4,8 +4,6 @@ source $(dirname $0)/checkers/checkers-lib.sh
 
 read old new ref < /dev/stdin
 
-branch_name=$(echo $ref | awk 'BEGIN \{ FS = "/" } ; \{ print $NF }')
-
 print_flags () \{
 	print_flag_icon
 	if [[ $# -eq 1 ]] 
@@ -23,10 +21,28 @@ print_flags () \{
 
 print_seperator
 
-case $branch_name in
-{{ for level in levels }}{level.branch})
-    echo $old $new $ref | {level.solution_checker} && print_flags{{ for levelflag in level.flags }} "{levelflag}"{{ endfor }}
-    ;;
-{{ endfor }}*)
-	echo "Unknown branchname $branch_name from ref $ref pushed! Are you sure you're pushing the correct branch?" && exit 1
-esac
+# Hack for tag levels, so hard-coding :(
+if [[ $ref == "refs/tags/"* ]];
+then
+	tag_name=$(echo $ref | awk 'BEGIN \{ FS = "/" } ; \{ print $NF }')
+	echo "Pushed a tag: $tag_name"
+	if [[ $tag_name == "my-new-tag" ]]; then
+		if [[ $(get_commit_of $new) == $(get_commit_of redamage-bundh-passerina-tag) ]]; then
+			print_flags "individually-nonintroversive-chalcomancy (tag-2)" "hands-trooshlach-nongassy (hooks-1)"
+		fi
+	fi
+fi
+
+if [[ $ref == "refs/heads/"* ]]; 
+then
+	branch_name=$(echo $ref | awk 'BEGIN \{ FS = "/" } ; \{ print $NF }')
+	echo "Pushed a branch: $branch_name"
+
+	case $branch_name in
+	{{ for level in levels }}{level.branch})
+		echo $old $new $ref | {level.solution_checker} && print_flags{{ for levelflag in level.flags }} "{levelflag}"{{ endfor }}
+		;;
+	{{ endfor }}*)
+		echo "Unknown branchname $branch_name from ref $ref pushed! Are you sure you're pushing the correct branch?" && exit 1
+	esac
+fi

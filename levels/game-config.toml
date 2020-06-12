@@ -101,7 +101,10 @@ flags = ['merge-6']
 title = 'tag-1'
 branch = 'redamage-bundh-passerina'
 solution_checker = 'hooks/checkers/tag-1.sh'
-flags = ['tag-2', 'hooks-1']
+flags = [
+    'tag-2',
+    'hooks-1',
+]
 
 [[levels]]
 title = 'tag-2'
@@ -119,4 +122,13 @@ flags = ['remote-1', 'hooks-2']
 title = 'rebase-1'
 branch = 'parallelizing-barnhardtite-base'
 solution_checker = 'hooks/checkers/rebase-1.sh'
-flags = ['rebase-2']
+flags = [
+    'remote-1',
+    'hooks-2',
+]
+
+[[levels]]
+title = 'hooks-2'
+branch = 'cyprus-akees-metope'
+solution_checker = 'hooks/checkers/hooks-2.sh'
+flags = ['remote-1']

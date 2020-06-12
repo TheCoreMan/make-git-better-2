@@ -14,7 +14,7 @@ popd
 ## title hooks-2 
 ## branch cyprus-akees-metope -> That means the tag is cyprus-akees-metope-tag
 
-commit_amount=$( git log cyprus-akees-metope-tag..$ref --oneline | wc -l )
+commit_amount=$( git log cyprus-akees-metope-tag..$new --oneline | wc -l )
 if (( $commit_amount < 1 )); then
     reject-solution "Not enough commits: saw "$commit_amount" commits, expected 1 or more.";
 fi

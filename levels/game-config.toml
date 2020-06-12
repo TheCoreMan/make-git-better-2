@@ -114,3 +114,9 @@ title = 'hooks-1'
 branch = 'hands-trooshlach-nongassy'
 solution_checker = 'hooks/checkers/hooks-1.sh'
 flags = ['remote-1', 'hooks-2']
+
+[[levels]]
+title = 'rebase-1'
+branch = 'parallelizing-barnhardtite-base'
+solution_checker = 'hooks/checkers/rebase-1.sh'
+flags = ['rebase-2']

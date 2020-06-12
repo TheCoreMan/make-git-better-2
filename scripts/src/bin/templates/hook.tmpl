@@ -42,5 +42,7 @@ then
 	{{ for level in levels }}{level.branch})
 		echo $old $new $ref | {level.solution_checker} && print_flags{{ for levelflag in level.flags }} "{levelflag}"{{ endfor }}
 		;;
-	{{ endfor }}esac
+	{{ endfor }}*)
+		echo "Unknown branchname $branch_name from ref $ref pushed! Are you sure you're pushing the correct branch?" && exit 1
+	esac
 fi

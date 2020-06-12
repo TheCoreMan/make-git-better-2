@@ -72,7 +72,7 @@ Once you've done this, run `cd ctf-repo` to change the working directory to the 
 
 ![Clone level screenshot](https://i.imgur.com/3fJ51oe.png "Clone level screenshot")
 
-Finally, read the `README.md` file to see what you need to do to get to the next level - `start-here`.
+Finally, read the `README.md` file to see what you need to do to get to [the next level: `start-here`](../start-here).
 
 Good luck!
 

@@ -15,6 +15,8 @@ twitter:
 
 {{< levelgraph >}}
 
+![hook](https://media.giphy.com/media/UhFZggMF6xGWk/giphy.gif "hook")
+
 **For this stage, you must run the script ./setup_hooks_stage.sh first!**
 
 Just commit something :)

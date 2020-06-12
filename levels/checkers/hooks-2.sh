@@ -14,8 +14,14 @@ popd
 ## title hooks-2 
 ## branch cyprus-akees-metope -> That means the tag is cyprus-akees-metope-tag
 
-# Check how many commits the user needed - shouldn't be more than 3!
 commit_amount=$( git log cyprus-akees-metope-tag..$ref --oneline | wc -l )
-if [ $commit_amount -gt 0 ];
-    then bad "Not enough commits: expected at least "$commit_amount" commits";
+if (( $commit_amount < 1 )); then
+    reject-solution "Not enough commits: saw "$commit_amount" commits, expected 1 or more.";
+fi
+
+if git log --format=%B -n 1 $new |  grep -iq ".*git is awesome.*"; 
+then
+    echo "Message '$(git log --format=%B -n 1 $new)' is good"
+else
+    reject-solution "Commit message '$(git log --format=%B -n 1 $new)' doesn't contain 'git is awesome', which is what the commit-msg hook tried to enforce. Try again.";
 fi

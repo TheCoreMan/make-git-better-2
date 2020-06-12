@@ -11,6 +11,7 @@ setup_repo_for_test() {
     pushd $test_dir
     git clone gamemaster@localhost:~/ctf-repo
     pushd ctf-repo
+    git config checkout.defaultRemote origin
     echo Finished setup, currently in $(pwd)
 }
 

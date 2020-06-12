@@ -22,7 +22,14 @@ mkdir .ssh && chmod 700 .ssh
 cat /tmp/id_rsa.player.pub >> ~/.ssh/authorized_keys
 cat /tmp/id_rsa.tester.pub >> ~/.ssh/authorized_keys
 
-cd ~/ctf-repo
+pushd ~/ctf-repo
 echo In $(pwd), updating bare repo...
 ls -la
 git fetch origin +refs/heads/*:refs/heads/* --prune
+popd
+
+pushd ~/forked-ctf-repo
+echo In $(pwd), updating bare repo...
+ls -la
+git fetch origin +refs/heads/*:refs/heads/* --prune
+popd

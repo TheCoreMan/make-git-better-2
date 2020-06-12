@@ -116,7 +116,10 @@ flags = []
 title = 'hooks-1'
 branch = 'hands-trooshlach-nongassy'
 solution_checker = 'hooks/checkers/hooks-1.sh'
-flags = ['remote-1', 'hooks-2']
+flags = [
+    'remote-1',
+    'hooks-2',
+]
 
 [[levels]]
 title = 'rebase-1'
@@ -132,3 +135,9 @@ title = 'hooks-2'
 branch = 'cyprus-akees-metope'
 solution_checker = 'hooks/checkers/hooks-2.sh'
 flags = ['remote-1']
+
+[[levels]]
+title = 'remote-1'
+branch = 'geared-tidal-consolidated'
+solution_checker = 'hooks/checkers/remote-1.sh'
+flags = ['main-branch-done-you-win']

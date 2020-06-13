@@ -1,4 +1,4 @@
-<div id="mynetwork" style="border: 5px inset #e8eef2;"></div>
+<div id="mynetwork" style="border: 5px inset #e8eef2; height: 20vw; width: 95vw; position: relative; left: calc(-45vw + 45%);"></div>
 
 <script type="text/javascript">
     var DOTstring = `
@@ -18,6 +18,34 @@
     currentNode = parsedData.nodes[currentNodeIndex]
     // Add a "you are here" pin to the node graph
     parsedData.nodes[currentNodeIndex].label = "📍 " + currentNode.label;
+
+    // Emojify all other nodes
+
+    var level_to_emoji = \{
+        "clone": "📠 ",
+        "start": "🔰 ",
+        "basic": "🐣 ",
+        "log": "📜 ",
+        "merge": "🔀 ",
+        "remote": "🚀 ",
+        "rebase": "🔀 ",
+        "revert": "⏮ ",
+        "hooks": "🎣 ",
+        "tag": "🔖 ",
+    }
+    
+    
+    parsedData.nodes = 
+        parsedData.nodes.map(node => \{
+            for (let [level_prefix, emoji] of Object.entries(level_to_emoji)) \{
+                if (node.label.startsWith(level_prefix)) \{ 
+                    node.label = emoji + node.label;
+                }
+            }
+            return node;
+        }
+    );
+
 
     // create a network
     var container = document.getElementById('mynetwork');
@@ -49,8 +77,14 @@
     // Add the interactive navigation thing. When clicking on a node, move to that page.
     network.on("click", function(params) \{
         if (1 == params.nodes.length) \{
+            // levelName is including emoji
             levelName = data.nodes[params.nodes[0]].label;
-	        resulting_url = document.location.origin + "/levels/" + levelName;
+            levelPath = levelName;
+            // strip emoji if exists
+            if (levelName.split(" ").length == 2) \{
+                levelPath = levelName.split(" ")[1];
+            }
+	        resulting_url = document.location.origin + "/levels/" + levelPath;
             document.location.href = resulting_url;
         }
     });
@@ -66,7 +100,19 @@
     });
 
     network.once("afterDrawing", function() \{
-        network.fit(\{
+        // mobile or putting the chrome browser to the side or etc.
+        var final_scale = 1.25;
+        if (screen.width < 1000) \{
+            var final_scale = 1;
+        }
+        if (screen.width < 800) \\{
+            var final_scale = 0.75;
+        }
+
+        network.focus(
+            currentNode.id,
+            \{
+            scale: final_scale,
             animation: \{
                 duration: 1200,
                 easingFunction: "easeOutQuint"

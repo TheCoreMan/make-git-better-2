@@ -34,7 +34,8 @@ This CTF, like most other CTFs, is separated into levels. You start at the "clon
 The pages on this website for the different levels can be accessed via the **level graph browser**:
 
 - The current level is marked with a 📍. For example, you are now in the `📍 clone` level.
-- Click on a level to see its page.
+- Click on a level to go to its page.
+- You can zoom in and out and drag the browser around to take a look, as well.
 
 {{< levelgraph >}}
 
@@ -58,7 +59,7 @@ This is the first level of the challenge. The goal of this level is for you to l
 
 The host to which you need to connect is `TODO put host here`, on port `TODO put port here`. The username is `player` and the password is `player`.
 
-The game server is an `Ubuntu` server, and your shell is `zsh` with the `git` plugin.
+The game server has some stuff installed. [See the CTF intro page for more details](../../ctf).
 
 ### Clone the repository
 

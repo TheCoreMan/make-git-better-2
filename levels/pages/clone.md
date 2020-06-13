@@ -57,7 +57,11 @@ This is the first level of the challenge. The goal of this level is for you to l
 
 ### Connect to the game server
 
-The host to which you need to connect is `TODO put host here`, on port `TODO put port here`. The username is `player` and the password is `player`.
+The host to which you need to connect is `ctf.mrnice.dev`, on port `12345`. The username is `player` and the password is `player`. So:
+
+```sh
+ssh player@ctf.mrnice.dev -p 12345
+```
 
 The game server has some stuff installed. [See the CTF intro page for more details](../../ctf).
 

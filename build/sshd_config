@@ -12,7 +12,8 @@ AcceptEnv LANG LC_*
 # override default of no subsystems
 Subsystem       sftp    /usr/lib/openssh/sftp-server
 
+# Close idle after 15 minutes
 ClientAliveInterval 60
-ClientAliveCountMax 10
+ClientAliveCountMax 15
 UsePAM no
 PrintMotd yes

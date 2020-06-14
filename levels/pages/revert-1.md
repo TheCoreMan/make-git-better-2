@@ -19,11 +19,13 @@ twitter:
 
 Try to run `runme.py`. What are you getting?
 
-As you can see, an erroneous commit has been introduced. Undo the errors! Revert that commit (the latest one).
-
 ## 🧩 Hints
 
 Click on the hint to see it.
+
+{{% expand "Not sure what to do ┐('～`;)┌" %}}
+As you can see, an erroneous commit has been introduced. Undo the errors! Revert that commit (the latest one).
+{{% /expand %}}
 
 {{% expand "Useful commands for this level" %}}
 `git log`, `git revert`.

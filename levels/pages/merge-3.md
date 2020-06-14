@@ -37,6 +37,10 @@ In this case the correct form is `you're`.
 `git merge`, `git checkout`, `git status`.
 {{% /expand %}}
 
+{{% expand "I got `not something we can merge` (⊙_⊙;)" %}}
+Make sure you're trying to merge something with the correct name - remember that there are remote branches and local branches, and [they are different](https://stackoverflow.com/a/16408515/4119906).
+{{% /expand %}}
+
 {{% expand "Point me to the documentation 📚" %}}
 [Basic merge conflicts](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging#_basic_merge_conflicts).
 {{% /expand %}}

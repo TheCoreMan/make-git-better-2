@@ -27,6 +27,8 @@ twitter:
 
 You'll have to hop around a little to find the flag. Read the `readme` to start.
 
+rKTUAESacQM
+
 ## 🧩 Hints
 
 Click on the hint to see it.

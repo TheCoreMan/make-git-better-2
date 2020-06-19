@@ -23,12 +23,12 @@ We can also add and delete directories from `git`, not only files. This level ab
 
 Click on hints to reveal them.
 
-{{% expand "Hint 0" %}}
+{{% expand "Creating directories?" %}}
 To create a directory, run `mkdir`.
 {{% /expand %}}
 
-{{% expand "Hint 1" %}}
+{{% expand "Adding directories?" %}}
 You can add all files in a directory using `git add some/directory/*`, or just `git add some/directory`.
 
-Be careful to not add all files if you don't actually want all of them.
+Be careful to not add all files if you don't actually want all of them!
 {{% /expand %}}

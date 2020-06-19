@@ -27,7 +27,7 @@ twitter:
 
 You'll have to hop around a little to find the flag. Read the `readme` to start.
 
-rKTUAESacQM
+{{< youtube mcCK99wHrk0 >}}
 
 ## 🧩 Hints
 

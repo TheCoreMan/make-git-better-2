@@ -5,7 +5,8 @@ Git CTF 🚩 but good this time.
 - [make-git-better-2](#make-git-better-2)
   - [Dependencies](#dependencies)
   - [Build](#build)
-    - [How to build the challenge Docker](#how-to-build-the-challenge-docker)
+    - [Ansible](#ansible)
+    - [How to build the challenge Docker manually](#how-to-build-the-challenge-docker-manually)
       - [Create the hook script](#create-the-hook-script)
         - [powershell](#powershell)
         - [sh](#sh)
@@ -28,10 +29,23 @@ Git CTF 🚩 but good this time.
 - Rust
 - Docker
 - Python 3.6 (for docker TCP switchboard)
+- Ansible (optional)
 
 ## Build
 
-### How to build the challenge Docker
+### Ansible
+
+Using Ansible, you can build and deploy the game server from nothing.
+
+```bash
+cd build/ansible
+sed -i 's/ctf.mrnice.dev/your.server.com/g' hosts
+ansible-playbook -v -i hosts build.yaml
+```
+
+Make sure that you have Ansible configured correctly with your SSH keys.
+
+### How to build the challenge Docker manually
 
 #### Create the hook script
 

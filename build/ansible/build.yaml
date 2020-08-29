@@ -1,0 +1,58 @@
+- hosts: ctfservers
+  vars:
+      time: "{{ lookup('pipe', 'date +%Y-%m-%d:%H:%M:%S%z') }}"
+  tasks:
+      - name: Pull CTF repo
+        git:
+            repo: 'https://github.com/TheCoreMan/make-git-better-2.git'
+            dest: ~/make-git-better-2
+            version: dev
+            accept_hostkey: yes
+
+      - name: Compile rust
+        command: ~/.cargo/bin/cargo run --bin generate-pre-receive-hook -- --verbose ~/make-git-better-2/levels/game-config.toml src/bin/templates/hook.tmpl
+        args:
+            chdir: ~/make-git-better-2/scripts
+
+      - name: Build Docker image
+        docker_image:
+            build:
+                path: ~/make-git-better-2
+                args:
+                    CACHE_DATE: "{{ time }}"
+            tag: 0.1
+            name: mgb
+
+      - name: Clone docker-tcp-switchboard
+        git:
+            repo: 'https://github.com/OverTheWireOrg/docker-tcp-switchboard.git'
+            dest: ~/docker-tcp-switchboard
+            accept_hostkey: yes
+
+      - name: Install docker-tcp-switchboard requirements
+        pip:
+            requirements: ~/docker-tcp-switchboard/requirements.txt
+            executable: pip3
+
+      - name: Create switchboard log
+        file:
+            path: /var/log/docker-tcp-switchboard.log
+            mode: a+w
+            state: touch
+        become: yes
+
+      - name: Copy our switchboard conf to /etc
+        copy:
+            src: /home/ec2-user/make-git-better-2/build/docker-tcp-switchboard.conf
+            dest: /etc/docker-tcp-switchboard.conf
+            remote_src: yes
+        become: yes
+
+      - name: Kill docker-tcp-switchboard
+        command: pkill -f "python3 .*docker-tcp-switchboard.py"
+        ignore_errors: true
+        become: yes
+
+      - name: Start docker-tcp-switchboard
+        shell: nohup python3 /home/ec2-user/docker-tcp-switchboard/docker-tcp-switchboard.py </dev/null >/dev/null 2>&1 &
+        become: yes

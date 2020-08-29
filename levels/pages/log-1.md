@@ -15,7 +15,7 @@ twitter:
 
 {{< levelgraph >}}
 
-![history](https://www.thepeoplesbulletin.com/wp-content/uploads/2018/04/learn-histpory-720x359.png "history")
+![history](https://i.pinimg.com/originals/c8/ae/dd/c8aedde71dc5ade3e6ce3e4a990a5314.jpg "history")
 
 The flag is in the commit message of this branch's grandparent.
 

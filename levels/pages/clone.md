@@ -19,6 +19,7 @@ Welcome to `make-git-better` CTF 🚩
 
 - [Notes for beginners](#notes-for-beginners)
   - [🧱 CTF structure](#ctf-structure)
+  - [The level browser](#the-level-browser)
   - [🤔 Unsure what to do?](#unsure-what-to-do)
 - [▶ I am ready to play](#i-am-ready-to-play)
   - [Connect to the game server](#connect-to-the-game-server)
@@ -33,8 +34,13 @@ This CTF, like most other CTFs, is separated into levels. You start at the "clon
 
 The pages on this website for the different levels can be accessed via the **level graph browser**:
 
+### The level browser
+
 - The current level is marked with a 📍. For example, you are now in the `📍 clone` level.
-- Click on a level to see its page.
+- Click on a level to go to its page.
+- You can zoom in and out and drag the browser around to take a look, as well.
+
+Try it out!
 
 {{< levelgraph >}}
 
@@ -52,13 +58,15 @@ There are several things you can try when you are unsure how to continue:
 
 ## ▶ I am ready to play
 
-This is the first level of the challenge. The goal of this level is for you to log into the game using SSH and clone the game repository.
+This is the first level of the challenge. The goal of this level is for you to log into the game server using SSH and clone the game repository.
 
 ### Connect to the game server
 
-The host to which you need to connect is `TODO put host here`, on port `TODO put port here`. The username is `player` and the password is `player`.
+The host to which you need to connect is `ctf.mrnice.dev`, on port `12345`. The username is `player` and the password is `player`. So:
 
-The game server is an `Ubuntu` server, and your shell is `zsh` with the `git` plugin.
+```sh
+ssh player@ctf.mrnice.dev -p 12345
+```
 
 ### Clone the repository
 
@@ -68,7 +76,13 @@ You need to `clone` a repository using `ssh`, as well. The server is `localhost`
 git clone gamemaster@localhost:~/ctf-repo
 ```
 
-Once you've done this, run `cd ctf-repo` to change the working directory to the cloned repository. You should see changes in your shell (like `master`). It should look something like this:
+Once you've done this, run
+
+```sh
+cd ctf-repo
+``` 
+
+to change the working directory to the cloned repository. You should see some changes in your shell (like `master` on the left side). It should look something like this:
 
 ![Clone level screenshot](https://i.imgur.com/3fJ51oe.png "Clone level screenshot")
 
@@ -89,6 +103,12 @@ Click on hints to reveal them.
 {{% expand "`clone`?" %}}
 
 [Here's some documentation about cloning](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository). If you're new to `git`, you really should read this!
+
+{{% /expand %}}
+
+{{% expand "What's on the game server" %}}
+
+The game server is set up with quite a lot of programs: [see the CTF intro page for more details](../../ctf#the-game-server).
 
 {{% /expand %}}
 

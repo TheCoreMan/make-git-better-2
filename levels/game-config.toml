@@ -80,10 +80,7 @@ flags = [
 title = 'revert-1'
 branch = 'lomentaceous-mididae-hexadecane'
 solution_checker = 'hooks/checkers/revert-1.sh'
-flags = [
-    'rebase-1',
-    'tag-1',
-]
+flags = ['tag-1']
 
 [[levels]]
 title = 'merge-4'
@@ -95,15 +92,15 @@ flags = ['merge-5']
 title = 'merge-5'
 branch = 'reappraise-veratroyl-garfishes'
 solution_checker = 'hooks/checkers/merge-5.sh'
-flags = ['merge-6']
+flags = ['merge-levels-done-you-win']
 
 [[levels]]
 title = 'tag-1'
 branch = 'redamage-bundh-passerina'
 solution_checker = 'hooks/checkers/tag-1.sh'
 flags = [
-    'tag-2',
-    'hooks-1',
+    'tag-2', 
+    'hooks-1'
 ]
 
 [[levels]]
@@ -117,7 +114,7 @@ title = 'hooks-1'
 branch = 'hands-trooshlach-nongassy'
 solution_checker = 'hooks/checkers/hooks-1.sh'
 flags = [
-    'remote-1',
+    'rebase-1',
     'hooks-2',
 ]
 
@@ -126,18 +123,17 @@ title = 'rebase-1'
 branch = 'parallelizing-barnhardtite-base'
 solution_checker = 'hooks/checkers/rebase-1.sh'
 flags = [
-    'remote-1',
-    'hooks-2',
+    'remote-1'
 ]
 
 [[levels]]
 title = 'hooks-2'
 branch = 'cyprus-akees-metope'
 solution_checker = 'hooks/checkers/hooks-2.sh'
-flags = ['remote-1']
+flags = ["hooks-levels-done-you-win"]
 
 [[levels]]
 title = 'remote-1'
 branch = 'geared-tidal-consolidated'
 solution_checker = 'hooks/checkers/remote-1.sh'
-flags = ['main-branch-done-you-win']
+flags = ['main-levels-done-you-win']

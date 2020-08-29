@@ -17,6 +17,8 @@ twitter:
 
 ![you're it](https://media.giphy.com/media/1lwlSMzDAegXozqnLJ/giphy.gif "you're it")
 
+> The flag is *not* `the-current-level-flag`
+
 ## 🧩 Hints
 
 Click on the hint to see it.

@@ -19,6 +19,8 @@ There's a script called `runme.py`. Try to run it.
 
 ![staircase](https://media.giphy.com/media/6laM7KdXvzBba/giphy.gif)
 
+Once you're done with this level, remember to push!
+
 ## 🧩 Hints
 
 Click on hints to reveal them.
@@ -31,6 +33,10 @@ See why in [this AskUbuntu thread](https://askubuntu.com/questions/320632/why-do
 
 {{% expand "I ran it, now what?" %}}
 Well, it didn't work, and raised an exception. What does the error say?
+{{% /expand %}}
+
+{{% expand "I got `not something we can merge` (⊙_⊙;)" %}}
+Make sure you're trying to merge something with the correct name - remember that there are remote branches and local branches, and [they are different](https://stackoverflow.com/a/16408515/4119906).
 {{% /expand %}}
 
 {{% expand "Useful commands for this level" %}}

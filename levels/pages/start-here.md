@@ -27,6 +27,8 @@ This stage is just a warm-up and it shouldn't be confusing, difficult, or requir
 
 ### What do I do with the flag
 
+**Make sure you copy and save the flags somewhere!**
+
 You passed this stage of the CTF, so ***check out*** the next stage 👀
 
 ⚠ _Note:_ Don't worry if you see the following error message:
@@ -36,7 +38,7 @@ You passed this stage of the CTF, so ***check out*** the next stage 👀
 error: failed to push some refs to 'gamemaster@localhost:~/ctf-repo'
 ```
 
-It's on purpose. The important part is that you got the flag 🚩 Make sure you copy and save the flags somewhere!
+It's on purpose. The important part is that you got the flag 🚩
 
 ## 🧩 Hints
 
@@ -58,12 +60,16 @@ Read about [`git commit`](https://www.atlassian.com/git/tutorials/saving-changes
 In this case, just running `git push` is enough.
 {{% /expand %}}
 
-{{% expand "What if I f-ed it up" %}}
+{{% expand "ლ(¯ロ¯ლ)   What if I f-ed it up" %}}
 Good! That's a good way to learn. You'll need to figure out how to return things to their original state and start over :)
 {{% /expand %}}
 
-{{% expand "What if I f-ed it up, for real" %}}
+{{% expand "ლ(ಠ_ಠ ლ)   What if I f-ed it up, for real" %}}
 First, return to the original commit from which you've started the challenge (`git checkout origin/start-here`).
 Then, set the local `start-here` branch to the current HEAD (`git branch -f start-here`).
 Now you can try to solve again.
+{{% /expand %}}
+
+{{% expand "What do I do with the flag? 🚩" %}}
+The flag points you to the next branch you need to checkout! `git checkout <the flag you've got>`.
 {{% /expand %}}

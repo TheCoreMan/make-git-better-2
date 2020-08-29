@@ -1,61 +1,55 @@
 - hosts: ctfservers
-  vars:
-      time: "{{ lookup('pipe', 'date +%Y-%m-%d:%H:%M:%S%z') }}"
   tasks:
-      - name: Pull CTF repo
-        git:
-            repo: 'https://github.com/TheCoreMan/make-git-better-2.git'
-            dest: /home/{{ ansible_facts['user_id'] }}/make-git-better-2
-            version: dev
-            accept_hostkey: yes
+    - name: Pull CTF repo
+      git:
+        repo: "https://github.com/TheCoreMan/make-git-better-2.git"
+        dest: /home/{{ ansible_facts['user_id'] }}/make-git-better-2
+        version: dev
+        accept_hostkey: yes
 
-      - name: Compile rust
-        command: /home/{{ ansible_facts['user_id'] }}/.cargo/bin/cargo run --bin generate-pre-receive-hook -- --verbose /home/{{ ansible_facts['user_id'] }}/make-git-better-2/levels/game-config.toml src/bin/templates/hook.tmpl
-        args:
-            chdir: /home/{{ ansible_facts['user_id'] }}/make-git-better-2/scripts
+    - name: Compile rust
+      command: /home/{{ ansible_facts['user_id'] }}/.cargo/bin/cargo run --bin generate-pre-receive-hook -- --verbose /home/{{ ansible_facts['user_id'] }}/make-git-better-2/levels/game-config.toml src/bin/templates/hook.tmpl
+      args:
+        chdir: /home/{{ ansible_facts['user_id'] }}/make-git-better-2/scripts
 
-      - name: Build Docker image
-        docker_image:
-            build:
-                path: /home/{{ ansible_facts['user_id'] }}/make-git-better-2
-                args:
-                    CACHE_DATE: "{{ time }}"
-            tag: 0.1
-            name: mgb
+    - name: Build Docker image
+      shell: docker build --tag mgb:0.1 --build-arg CACHE_DATE=$(date +%Y-%m-%d:%H:%M:%S) .
+      args:
+        chdir: /home/{{ ansible_facts['user_id'] }}/make-git-better-2
 
-      - name: Clone docker-tcp-switchboard
-        git:
-            repo: 'https://github.com/OverTheWireOrg/docker-tcp-switchboard.git'
-            dest: /home/{{ ansible_facts['user_id'] }}/docker-tcp-switchboard
-            accept_hostkey: yes
+    - name: Clone docker-tcp-switchboard
+      git:
+        repo: "https://github.com/OverTheWireOrg/docker-tcp-switchboard.git"
+        dest: /home/{{ ansible_facts['user_id'] }}/docker-tcp-switchboard
+        accept_hostkey: yes
 
-      - name: Install docker-tcp-switchboard requirements
-        pip:
-            requirements: /home/{{ ansible_facts['user_id'] }}/docker-tcp-switchboard/requirements.txt
-            executable: pip3
+    - name: Install docker-tcp-switchboard requirements
+      pip:
+        requirements: /home/{{ ansible_facts['user_id'] }}/docker-tcp-switchboard/requirements.txt
+        executable: pip3
 
-      - name: Create switchboard log
-        file:
-            path: /var/log/docker-tcp-switchboard.log
-            mode: a+w
-            state: touch
-        become: yes
+    - name: Create switchboard log
+      file:
+        path: /var/log/docker-tcp-switchboard.log
+        mode: a+w
+        state: touch
+      become: yes
 
-      - name: Copy our switchboard conf to /etc
-        copy:
-            src: /home/{{ ansible_facts['user_id'] }}/make-git-better-2/build/docker-tcp-switchboard.conf
-            dest: /etc/docker-tcp-switchboard.conf
-            remote_src: yes
-        become: yes
+    - name: Copy our switchboard conf to /etc
+      copy:
+        src: /home/{{ ansible_facts['user_id'] }}/make-git-better-2/build/docker-tcp-switchboard.conf
+        dest: /etc/docker-tcp-switchboard.conf
+        remote_src: yes
+      become: yes
 
-      - name: Kill docker-tcp-switchboard
-        command: pkill -f "python3 .*docker-tcp-switchboard.py"
-        ignore_errors: true
-        become: yes
+    - name: Kill docker-tcp-switchboard
+      command: pkill -f "python3 .*docker-tcp-switchboard.py"
+      ignore_errors: true
+      become: yes
 
-      - name: Start docker-tcp-switchboard
-        shell: nohup python3 /home/{{ ansible_facts['user_id'] }}/docker-tcp-switchboard/docker-tcp-switchboard.py </dev/null >/dev/null 2>&1 &
-        # This shell line is required because Ansible sends a kill signal to Python
-        # when it finishes running. The nohup is there to prevent it, and the redirections
-        # prevent breaking the process.
-        become: yes
+    - name: Start docker-tcp-switchboard
+      shell: nohup python3 /home/{{ ansible_facts['user_id'] }}/docker-tcp-switchboard/docker-tcp-switchboard.py </dev/null >/dev/null 2>&1 &
+      # This shell line is required because Ansible sends a kill signal to Python
+      # when it finishes running. The nohup is there to prevent it, and the redirections
+      # prevent breaking the process.
+      become: yes

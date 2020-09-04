@@ -55,9 +55,9 @@ COPY build/login_banner.txt /etc/motd
 RUN /etc/init.d/ssh start && ssh-keyscan -H localhost >> /home/player/.ssh/known_hosts && ssh-keyscan -H localhost >> /home/tester/.ssh/known_hosts
 
 # Set up the git server so that the player can run git clone gamemaster@localhost:/home/gamemaster/ctf-repo
-RUN git clone --bare https://github.com/ShayNehmad/make-git-better-levels.git /home/gamemaster/ctf-repo
+RUN git clone --bare https://github.com/TheCoreMan/make-git-better-levels.git /home/gamemaster/ctf-repo
 # Set up the other remote for the remote stages
-RUN git clone --bare https://github.com/TheCoreMan/make-git-better-levels.git /home/gamemaster/forked-ctf-repo
+RUN git clone --bare https://github.com/sandspider2234/make-git-better-levels.git /home/gamemaster/forked-ctf-repo
 # This file adds the player's ssh public key from before
 COPY build/gamemaster_entrypoint.sh /home/gamemaster
 RUN chown gamemaster:gamemaster /home/gamemaster/gamemaster_entrypoint.sh

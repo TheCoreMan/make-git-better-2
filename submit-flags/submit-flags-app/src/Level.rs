@@ -57,57 +57,96 @@ impl Component for LevelComponent {
             flag: props.flag,
             // The initial user flag is empty
             user_flag: "".to_string(),
-            // This is passed from the parent component as well, but has a default value of `false`.
+            // This has a default value of `false`. Not passed from parent
             flag_correct: props.flag_correct,
         }
     }
 
+    // See https://yew.rs/docs/en/concepts/components/#update
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
+        log::debug!("Updating level {} component", self.name.clone());
+        // Do something different depending on the update message.
         match msg {
             LevelMsg::CheckFlag => {
-                // TODO - hash
-                self.flag_correct = self.user_flag == self.flag
+                log::debug!("In level {}, checking flag", self.name.clone());
+                // TODO - Change this to hash instead of flag
+                self.flag_correct = self.user_flag == self.flag;
+                true  // Re-render
             }
-            LevelMsg::UserFlagChanged(value) => {
-                log::debug!("In level {}, User flag changed from {} to {}", self.name.clone(), self.user_flag.clone(), value.clone());
-                self.user_flag = value;
+            LevelMsg::UserFlagChanged(new_user_flag) => {
+                log::debug!("In level {}, User flag changed from {} to {}", self.name.clone(), self.user_flag.clone(), new_user_flag.clone());
+                self.user_flag = new_user_flag;
                 self.update(LevelMsg::CheckFlag);
+                true  // Re-render
             }
         }
-        true
     }
 
+    // See https://yew.rs/docs/en/concepts/components/#change
+    // We're not using "change"
     fn change(&mut self, _props: Self::Properties) -> ShouldRender{
-        // Should only return "true" if new properties are different to
-        // previously received properties.
-        // This component has no properties so we will always return "false".
+        log::debug!("Changing level {} component", self.name.clone());
         false
     }
 
+    // See https://yew.rs/docs/en/concepts/components/#view
+    // In this method we're declaring what the element looks like. This is very reminiscent of JSX and React.
     fn view(&self) -> Html {
+        log::debug!("Viewing level {} component", self.name.clone());
+
+        // TODO - move to "create"
         let label_text = self.name.clone() + "'s flag goes here 🚩";
+        let input_id = self.name.clone() + "-id";
+
+        // Creating the element as variables makes it clearer - similar to functional elements in react
+
+        // This element just prints the component info to make it easier to develop. Will delete soon :)
+        let debug_info_element = html! { 
+            <pre>
+                { 
+                    format!("DEBUG: I am a level component! Name: {} | Flag: {} | Status: {}", 
+                        self.name.clone(),
+                        self.flag.clone(),
+                        self.flag_correct) 
+                }
+                <br/>
+            </pre> 
+        };
+
+        // This element is the input for the flag.
+        let input_element = html! {
+            <div class="input-effect">
+                <input 
+                    id={ input_id.clone() } 
+                    /* Change the background colour effect according to the status. If the flag is correct, the class will be "effect-8 effect-10-good",
+                     * which paints the BG of the text box green (and stays). Otherwise, paint it in red (as long as it's in focus).
+                     */
+                    class={ format!("effect-8 effect-10-{}", if self.flag_correct { "good" } else { "bad" }) } 
+                    type="text" 
+                    placeholder={label_text.clone()} 
+                    // Whenever the user inputs something into the box, notify this LevelComponent that the user flag has changed.
+                    oninput=self.link.callback(|e: InputData| LevelMsg::UserFlagChanged(e.value))  // <-- important line!
+                />
+                // Cosmetics
+                <span class="focus-bg"></span><span class="focus-border"><i></i></span>
+            </div>
+        };
+
+        // This element is for a11y - don't indicate status with color only, but with an emoji as well.
+        let status_element = html! {
+            <pre class="status"> { get_correct_emoji(self.flag_correct) }</pre>
+        };
+
+        // This is the complete HTML component we're returning from `view`.
         html! {
-            <>
-                <span>
-                    <pre>
-                        {"DEBUG: I am a level component! Name: "}{self.name.clone()}
-                        {" | Flag: "}{self.flag.clone()}
-                        {" | Status: "}{get_correct_emoji(self.flag_correct)}
-                    </pre>
-                    <br/>
-                    <div>
-                        <div class="input-effect">
-                        <input class={ format!("effect-8 effect-10-{}", if self.flag_correct { "good" } else { "bad" }) } type="text" placeholder={label_text.clone()} oninput=self.link.callback(|e: InputData| LevelMsg::UserFlagChanged(e.value)) />
-                            <span class="focus-bg"></span>    
-                            <span class="focus-border">
-                                <i></i>
-                            </span>
-                        </div>
-                        // TODO - delete button
-                        <button id="check-flag-btn" onclick=self.link.callback(|_| LevelMsg::CheckFlag)><span>{"Check flag"}</span></button>
-                    </div>
-                </span>
-            </>
+            <span>
+                // TODO - delete this
+                { debug_info_element }
+                <div>
+                    { input_element }
+                    { status_element }
+                </div>
+            </span>
         }
     }
 }

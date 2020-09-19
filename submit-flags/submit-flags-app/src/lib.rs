@@ -8,28 +8,41 @@ use yew::prelude::{Component, ComponentLink, ShouldRender, Html, html, App};
 use level::LevelComponent;
 use wasm_logger;
 
-struct Model {
+struct LevelInfo {
+    name: String, 
+    flag: String,
+}
+
+struct SubmitFlagsPage {
     link: ComponentLink<Self>,
-    value: i64,
+    levels: Vec<LevelInfo>,
+    all_flags_done: bool,
 }
 
 enum Msg {
-    AddOne,
+    CheckAllFlags,
 }
 
-impl Component for Model {
+impl Component for SubmitFlagsPage {
     type Message = Msg;
     type Properties = ();
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+        // TODO change to read from file
+        let const_level_1 = LevelInfo {name: "name1".to_string(), flag: "flag1".to_string()};
+        let const_level_2 = LevelInfo {name: "name2".to_string(), flag: "flag2".to_string()};
+
+        let levels_info_vector = vec![const_level_1, const_level_2];
+
         Self {
-            link,
-            value: 0,
+            link: link,
+            levels: levels_info_vector,
+            all_flags_done: false,
         }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Msg::AddOne => self.value += 1
+            Msg::CheckAllFlags => self.all_flags_done = !self.all_flags_done
         }
         true
     }
@@ -46,8 +59,8 @@ impl Component for Model {
             <>
                 <main class="site-main section-inner thin animated fadeIn">
                     <h1 id="home-title">{ "Make Git Better CTF - Submit Flags" }</h1>
-                    <div id="single-level-checker" class="content">
-                        <LevelComponent name="levelname" flag="levelflag"/>
+                    <div id="level-checkers" class="content">
+                        { for self.levels.iter().map(create_component_from_level_info) }
                     </div>
                 </main>
             </>
@@ -55,8 +68,14 @@ impl Component for Model {
     }
 }
 
+fn create_component_from_level_info(level_info: &LevelInfo) -> Html {
+    html! {
+        <LevelComponent name=level_info.name.clone() flag=level_info.flag.clone() />
+    }
+}
+
 #[wasm_bindgen(start)]
 pub fn run_app() {
     wasm_logger::init(wasm_logger::Config::default());
-    App::<Model>::new().mount_to_body();
+    App::<SubmitFlagsPage>::new().mount_to_body();
 }

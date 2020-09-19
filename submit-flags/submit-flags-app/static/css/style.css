@@ -1556,7 +1556,13 @@ input[type="text"]::placeholder{color: #ccc;}
 
 :focus{outline: none;}
 
-.input-effect{float: left; width: 70%; position: relative;} /* necessary to give position: relative to parent. */
+.input-effect{
+    float: left; 
+    width: 70%; 
+    margin-left: 3%;
+    margin-right: 3%;
+    position: relative;
+}
 
 .effect-8 ~ .focus-border:before,
 .effect-8 ~ .focus-border:after{content: ""; position: absolute; top: 0; left: 0; width: 0; height: 2px; background-color: #eee; transition: 0.3s;}
@@ -1576,3 +1582,8 @@ input[type="text"]::placeholder{color: #ccc;}
 .effect-10-bad:focus ~ .focus-bg{transition: 0.5s; opacity: 0.2;}
 
 .effect-10-good ~ .focus-bg{position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-color: #4caf50; opacity: 0.2; transition: 0.5s; z-index: -1;}
+
+.status {    
+    width: max-content;
+    text-align: center;
+}

@@ -1,4 +1,7 @@
 use log;
+use std::str;
+
+use sha2::{Sha256, Digest};
 
 use yew::prelude::{Component, ComponentLink, Properties, html, Html, ShouldRender};
 use yew::html::InputData;
@@ -13,7 +16,7 @@ pub struct LevelComponent {
     // The user's guess for the flag, that they are typing
     user_flag: String,
     // Whether the correct flag has been entered.
-    flag_correct: bool,
+    is_flag_correct: bool,
 }
 
 // These are the messages (think "events") that can happen in this component.
@@ -35,7 +38,7 @@ pub struct LevelProps {
     pub flag: String,
     // This prop indicates whether the user's flag is correct. Not passed from parent, but rather used to communicate back to it from the level.
     #[prop_or(false)]
-    pub flag_correct: bool,
+    pub is_flag_correct: bool,
 }
 
 // See https://yew.rs/docs/en/concepts/components/
@@ -58,23 +61,30 @@ impl Component for LevelComponent {
             // The initial user flag is empty
             user_flag: "".to_string(),
             // This has a default value of `false`. Not passed from parent
-            flag_correct: props.flag_correct,
+            is_flag_correct: props.is_flag_correct,
         }
     }
 
     // See https://yew.rs/docs/en/concepts/components/#update
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
-        log::debug!("Updating level {} component", self.name.clone());
         // Do something different depending on the update message.
         match msg {
             LevelMsg::CheckFlag => {
-                log::debug!("In level {}, checking flag", self.name.clone());
-                // TODO - Change this to hash instead of flag
-                self.flag_correct = self.user_flag == self.flag;
+                // Hash the user flag to an array
+                let hashed_user_flag_arr = Sha256::digest(self.user_flag.as_bytes());
+                // Cast the array to a string
+                let hashed_user_flag_str: String = format!("{:x}", hashed_user_flag_arr);
+                log::debug!("update::{}, user flag {}, user hash {}, actual flag hash {}", 
+                    self.name.clone(), 
+                    self.user_flag.clone(), 
+                    hashed_user_flag_str.clone(), 
+                    self.flag.clone());
+                // Compare user hash to our hash
+                self.is_flag_correct = hashed_user_flag_str == self.flag;
                 true  // Re-render
             }
             LevelMsg::UserFlagChanged(new_user_flag) => {
-                log::debug!("In level {}, User flag changed from {} to {}", self.name.clone(), self.user_flag.clone(), new_user_flag.clone());
+                log::debug!("update::{}, User flag changed from {} to {}", self.name.clone(), self.user_flag.clone(), new_user_flag.clone());
                 self.user_flag = new_user_flag;
                 self.update(LevelMsg::CheckFlag);
                 true  // Re-render
@@ -107,7 +117,7 @@ impl Component for LevelComponent {
                     format!("DEBUG: I am a level component! Name: {} | Flag: {} | Status: {}", 
                         self.name.clone(),
                         self.flag.clone(),
-                        self.flag_correct) 
+                        self.is_flag_correct) 
                 }
                 <br/>
             </pre> 
@@ -121,7 +131,7 @@ impl Component for LevelComponent {
                     /* Change the background colour effect according to the status. If the flag is correct, the class will be "effect-8 effect-10-good",
                      * which paints the BG of the text box green (and stays). Otherwise, paint it in red (as long as it's in focus).
                      */
-                    class={ format!("effect-8 effect-10-{}", if self.flag_correct { "good" } else { "bad" }) } 
+                    class={ format!("effect-8 effect-10-{}", if self.is_flag_correct { "good" } else { "bad" }) } 
                     type="text" 
                     placeholder={label_text.clone()} 
                     // Whenever the user inputs something into the box, notify this LevelComponent that the user flag has changed.
@@ -134,7 +144,7 @@ impl Component for LevelComponent {
 
         // This element is for a11y - don't indicate status with color only, but with an emoji as well.
         let status_element = html! {
-            <pre class="status"> { get_correct_emoji(self.flag_correct) }</pre>
+            <pre class="status"> { get_correct_emoji(self.is_flag_correct) }</pre>
         };
 
         // This is the complete HTML component we're returning from `view`.

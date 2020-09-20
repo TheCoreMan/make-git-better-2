@@ -41,7 +41,10 @@ flags = ['merge-3']
 title = 'log-1'
 branch = 'turbulator-feere-reinclined'
 solution_checker = 'hooks/checkers/log-1.sh'
-flags = ['log-2']
+flags = [
+    'log-2',
+    'add-1'
+]
 
 [[levels]]
 title = 'log-2'
@@ -99,8 +102,8 @@ title = 'tag-1'
 branch = 'redamage-bundh-passerina'
 solution_checker = 'hooks/checkers/tag-1.sh'
 flags = [
-    'tag-2', 
-    'hooks-1'
+    'tag-2',
+    'hooks-1',
 ]
 
 [[levels]]
@@ -122,18 +125,22 @@ flags = [
 title = 'rebase-1'
 branch = 'parallelizing-barnhardtite-base'
 solution_checker = 'hooks/checkers/rebase-1.sh'
-flags = [
-    'remote-1'
-]
+flags = ['remote-1']
 
 [[levels]]
 title = 'hooks-2'
 branch = 'cyprus-akees-metope'
 solution_checker = 'hooks/checkers/hooks-2.sh'
-flags = ["hooks-levels-done-you-win"]
+flags = ['hooks-levels-done-you-win']
 
 [[levels]]
 title = 'remote-1'
 branch = 'geared-tidal-consolidated'
 solution_checker = 'hooks/checkers/remote-1.sh'
 flags = ['main-levels-done-you-win']
+
+[[levels]]
+title = 'add-1'
+branch = 'disallowing-seleucid-quanting'
+solution_checker = 'hooks/checkers/add-1.sh'
+flags = ['add-levels-done-you-win']

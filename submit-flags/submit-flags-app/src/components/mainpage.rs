@@ -1,6 +1,5 @@
-use yew::prelude::{Component, ComponentLink, html, Html, ShouldRender};
-
 use anyhow::Error;
+use yew::prelude::{Component, ComponentLink, html, Html, ShouldRender};
 use yew::format::Json;
 use yew::prelude::*;
 use yew::services::fetch::FetchTask;
@@ -14,6 +13,7 @@ pub struct MainPage {
     link: ComponentLink<Self>,
     levels: Option<Vec<LevelInfo>>,
     all_flags_done: bool,
+    error: String,
 
     // Fetch-related members
     flags_service: GetFlagsService,
@@ -35,16 +35,11 @@ impl Component for MainPage {
     type Message = MainPageMsg;
     type Properties = ();
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        /*let const_level_1 = LevelInfo {name: "name1".to_string(), flag: "bfebba9e53b0108063c9c9e5828c0907337aeeed4363b1aac4da791d9593cec2".to_string()};
-        let const_level_2 = LevelInfo {name: "name2".to_string(), flag: "e647a1ad81540b0c4e11048cba1eeae8a9993052a1186a6dd9acf575c834ba83".to_string()};
-        let levels_info_vector = vec![const_level_1, const_level_2];
-
-        let levels = LevelsInfo { levels: levels_info_vector };*/
-
         Self {
             link: link.clone(),
             levels: None,
             all_flags_done: false,
+            error: "".to_string(),
 
             flags_service: GetFlagsService::new("levels_info.json"),
             flags_service_response: None,
@@ -76,6 +71,7 @@ impl Component for MainPage {
             }
             MainPageMsg::FlagsResponseReady(Err(err)) => {
                 log::error!("Error while trying to fetch flags: {:?}", err);
+                self.error = format!("{:?}", err);
             }
         }
         true
@@ -99,7 +95,7 @@ impl Component for MainPage {
             <>
                 <main class="site-main section-inner thin animated fadeIn">
                     <h1 id="home-title">{ "Make Git Better CTF - Submit Flags" }</h1>
-                    { self.levels_comp() }
+                    { self.get_levels_comp() }
                 </main>
             </>
         }
@@ -108,11 +104,26 @@ impl Component for MainPage {
 
 // Extra, non-component functions for MainPage
 impl MainPage {
-    fn levels_comp(&self) -> Html {
+    fn get_levels_comp(&self) -> Html {
         match &self.levels {
             None => {
-                html! {
-                    <div><p>{ "No levels yet. :( Check console logs." }</p></div>
+                // Check if still laoding, or an actual error
+                if self.error.is_empty() {  // Still loading
+                    html! {
+                        <>
+                            <div class="spinner"></div>
+                            <p>{ "No levels yet. Loading from server. If this is taking more than a few seconds, check the console logs." }</p>
+                        </>
+                    }
+                } else {  // Error state
+                    html! {
+                        <>
+                            <div class="spinner"></div>
+                            <p>{ format!("An error has occured! Details:") }</p>
+                            <pre> { self.error.clone() } </pre>
+                            <p>{ "Please reach out to Shay Nehmad (@ShayNehmad on Twitter) with the details!" }</p>
+                        </>
+                    }
                 }
             }
             Some(levels) => {

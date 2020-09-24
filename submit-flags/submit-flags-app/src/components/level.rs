@@ -1,5 +1,4 @@
 use log;
-use std::str;
 
 use sha2::{Sha256, Digest};
 

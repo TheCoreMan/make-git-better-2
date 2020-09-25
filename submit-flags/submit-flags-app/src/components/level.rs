@@ -5,6 +5,9 @@ use sha2::{Sha256, Digest};
 use yew::prelude::{Component, ComponentLink, Properties, html, Html, ShouldRender};
 use yew::html::InputData;
 
+use super::common::{SingleFlagStatus, CheckFlagCallback};
+
+
 pub struct LevelComponent {
     // The link enables us to interact (i.e. reqister callbacks and send messages) with the component itself. See https://yew.rs/docs/en/concepts/components/#create
     link: ComponentLink<Self>,
@@ -16,6 +19,8 @@ pub struct LevelComponent {
     user_flag: String,
     // Whether the correct flag has been entered.
     is_flag_correct: bool,
+    // Callback to update parent that flag has been solved
+    check_callback: CheckFlagCallback,
 }
 
 // These are the messages (think "events") that can happen in this component.
@@ -38,6 +43,8 @@ pub struct LevelProps {
     // This prop indicates whether the user's flag is correct. Not passed from parent, but rather used to communicate back to it from the level.
     #[prop_or(false)]
     pub is_flag_correct: bool,
+    // Callback to update parent that flag has been solved
+    pub check_callback: CheckFlagCallback,
 }
 
 // See https://yew.rs/docs/en/concepts/components/
@@ -61,6 +68,8 @@ impl Component for LevelComponent {
             user_flag: "".to_string(),
             // This has a default value of `false`. Not passed from parent
             is_flag_correct: props.is_flag_correct,
+            // parent has to pass the callback
+            check_callback: props.check_callback,
         }
     }
 
@@ -73,13 +82,13 @@ impl Component for LevelComponent {
                 let hashed_user_flag_arr = Sha256::digest(self.user_flag.as_bytes());
                 // Cast the array to a string
                 let hashed_user_flag_str: String = format!("{:x}", hashed_user_flag_arr);
-                log::debug!("update::{}, user flag {}, user hash {}, actual flag hash {}", 
-                    self.name.clone(), 
-                    self.user_flag.clone(), 
-                    hashed_user_flag_str.clone(), 
-                    self.flag.clone());
                 // Compare user hash to our hash
                 self.is_flag_correct = hashed_user_flag_str == self.flag;
+
+                // update parent via callback
+                let status = SingleFlagStatus { level_name: self.name.clone(), is_correct: self.is_flag_correct };
+                self.check_callback.emit(status);
+                
                 true  // Re-render
             }
             LevelMsg::UserFlagChanged(new_user_flag) => {
@@ -109,8 +118,8 @@ impl Component for LevelComponent {
 
         // Creating the element as variables makes it clearer - similar to functional elements in react
 
-        // This element just prints the component info to make it easier to develop. Will delete soon :)
-        let debug_info_element = html! { 
+        // This element just prints the component info to make it easier to develop.
+        let _debug_info_element = html! { 
             <pre>
                 { 
                     format!("DEBUG: I am a level component! Name: {} | Flag: {} | Status: {}", 
@@ -149,8 +158,6 @@ impl Component for LevelComponent {
         // This is the complete HTML component we're returning from `view`.
         html! {
             <span>
-                // TODO - delete this
-                { debug_info_element }
                 <div>
                     { input_element }
                     { status_element }

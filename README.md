@@ -68,7 +68,7 @@ cargo run --bin generate-pre-receive-hook -- --verbose ../levels/game-config.tom
 ##### Build docker
 
 ```sh
-docker build --tag mgb:0.1 --build-arg CACHE_DATE=$(date +%Y-%m-%d:%H:%M:%S) .
+docker build --tag mgb:0.1 --build-arg CACHE_DATE=$(date +%Y-%m-%d:%H:%M:%S) --build-arg OWASP_FLAG="AppSec_IL{g1t_d035_P3rM1t_T0_c0mm1T}" .
 ```
 
 ##### Run docker
@@ -80,7 +80,7 @@ docker run --detach --name mgbtest --publish 7777:22 mgb:0.1
 ##### Useful oneliner
 
 ```sh
-docker rm -f mgbtest && docker build --build-arg CACHE_DATE=$(date +%Y-%m-%d:%H:%M:%S%z) --tag mgb:0.1 . && docker run --detach --name mgbtest --publish 7777:22 mgb:0.1
+docker rm -f mgbtest; docker build --build-arg CACHE_DATE=$(date +%Y-%m-%d:%H:%M:%S%z) --build-arg OWASP_FLAG="AppSec_IL{g1t_d035_P3rM1t_T0_c0mm1T}" --tag mgb:0.1 . && docker run --detach --name mgbtest --publish 7777:22 mgb:0.1
 ```
 
 ##### Connect to the running instance

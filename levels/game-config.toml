@@ -14,7 +14,7 @@ flags = ['basic-1']
 title = 'basic-1'
 branch = 'scorpion-treenware-gestatory'
 solution_checker = 'hooks/checkers/basic-1.sh'
-flags = ['basic-2']
+flags = ['basic-2', 'owasp-ctf-1']
 
 [[levels]]
 title = 'basic-2'

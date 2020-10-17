@@ -2,7 +2,7 @@
 title = 'clone'
 branch = 'master'
 solution_checker = 'echo No pushing to master. Read the README file; exit 1'
-flags = ['start-here']
+flags = ['start-here', 'owasp-ctf-1']
 
 [[levels]]
 title = 'start-here'
@@ -14,7 +14,7 @@ flags = ['basic-1']
 title = 'basic-1'
 branch = 'scorpion-treenware-gestatory'
 solution_checker = 'hooks/checkers/basic-1.sh'
-flags = ['basic-2', 'owasp-ctf-1']
+flags = ['basic-2']
 
 [[levels]]
 title = 'basic-2'

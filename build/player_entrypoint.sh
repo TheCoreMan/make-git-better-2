@@ -10,8 +10,10 @@ fi
 # https://git-scm.com/book/en/v2/Git-on-the-Server-Setting-Up-the-Server
 cd
 pwd
-ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa 2>/dev/null <<< y >/dev/null
+# OWASP - key will be copied instead of generated
+# ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa 2>/dev/null <<< y >/dev/null
 
+cat ~/.ssh/id_rsa >> /tmp/id_rsa.player
 cat ~/.ssh/id_rsa.pub >> /tmp/id_rsa.player.pub
 
 echo "Setting up zsh"

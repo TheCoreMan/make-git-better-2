@@ -23,22 +23,29 @@ RUN apt install -y \
     sudo
 
 # Create the required users. The game master is the `git` account, and the player is the user's account
-RUN useradd --comment "GameMaster account" --create-home --password $(mkpasswd -m sha-512 94+wings+STRONG+mountain+35) gamemaster
+RUN useradd --comment "GameMaster account" --create-home --password $(mkpasswd -m sha-512 95+mcguffin+STRONG+ainasdf+15) gamemaster
 RUN useradd --comment "Player account" --create-home --password $(mkpasswd -m sha-512 player) --shell $(which zsh) player
 RUN useradd --comment "Testing account" --create-home --password $(mkpasswd -m sha-512 tester) --shell $(which zsh) tester
 
 # OWASP addition
-RUN useradd --comment "Flag account" --create-home --password $(mkpasswd -m sha-512 flagger) --shell $(which bash) flagger
+RUN useradd --comment "1st Flag account" --create-home --password $(mkpasswd -m sha-512 flagger) --shell $(which bash) flagger
+RUN useradd --comment "2nd Flag account" --create-home --password $(mkpasswd -m sha-512 flagger_the_second) --shell $(which bash) flagger_the_second
 RUN mkdir -p /etc/owasp/flags
-ARG OWASP_FLAG
-RUN echo $OWASP_FLAG > /etc/owasp/flags/flag.txt
+ARG OWASP_FLAG_1
+RUN echo $OWASP_FLAG_1 > /etc/owasp/flags/flag.txt
+ARG OWASP_FLAG_2
+RUN echo $OWASP_FLAG_2 > /flag.txt
 RUN chown --verbose --recursive flagger /etc/owasp
 RUN chmod --verbose --recursive 0700 /etc/owasp
+RUN chown --verbose flagger_the_second /flag.txt
+RUN chmod --verbose 0400 /flag.txt
 # echo "gamemaster     ALL=(flagger) NOPASSWD:/usr/bin/whoami, /usr/bin/python3" >> /etc/sudoers
 RUN echo "gamemaster     ALL=(flagger) NOPASSWD:/usr/bin/whoami, /usr/bin/python3" >> /etc/sudoers
 
 # Set up the player's SSH keys and copy the public key to /tmp
 COPY build/player_entrypoint.sh /home/player
+COPY build/keys/id_rsa.player /home/player/.ssh/id_rsa
+COPY build/keys/id_rsa.player.pub /home/player/.ssh/id_rsa.pub
 RUN chown player:player /home/player/player_entrypoint.sh
 RUN chmod 770 /home/player/player_entrypoint.sh
 RUN su -c "/home/player/player_entrypoint.sh" - player

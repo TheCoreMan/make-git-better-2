@@ -2,7 +2,11 @@
 title = 'clone'
 branch = 'master'
 solution_checker = 'echo No pushing to master. Read the README file; exit 1'
-flags = ['start-here', 'owasp-ctf-1']
+flags = [
+    'start-here',
+    'owasp-ctf-1',
+    'owasp-ctf-2',
+]
 
 [[levels]]
 title = 'start-here'
@@ -141,3 +145,9 @@ title = 'owasp-ctf-1'
 branch = 'headmistresses-tiptoes-bezzled'
 solution_checker = 'hooks/checkers/owasp-ctf-1.sh'
 flags = ['AppSec_IL{g1t_d035_P3rM1t_T0_c0mm1T}']
+
+[[levels]]
+title = 'owasp-ctf-2'
+branch = 'aghastness-subhead-cyrtometer'
+solution_checker = 'hooks/checkers/owasp-ctf-2.sh'
+flags = ['AppSec_IL{1f_y0u_w4n7_17_c0m3_4nd_917_17}']

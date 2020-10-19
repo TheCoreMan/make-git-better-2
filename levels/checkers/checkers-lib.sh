@@ -74,3 +74,15 @@ how_many_parents() {
 get_commit_message() {
     echo $(git --no-pager log -1 --pretty=%B $1)
 }
+
+get_commit_author_name() {
+    echo $(git --no-pager log -1 --pretty=%an $1)
+}
+
+get_commit_author_email() {
+    echo $(git --no-pager log -1 --pretty=%ae $1)
+}
+
+get_commit_timzone() {
+    echo $(git --no-pager log -1 --pretty=%aD $1 | awk '{ print $NF }')
+}

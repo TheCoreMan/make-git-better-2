@@ -30,6 +30,7 @@ RUN useradd --comment "Testing account" --create-home --password $(mkpasswd -m s
 # OWASP addition
 RUN useradd --comment "1st Flag account" --create-home --password $(mkpasswd -m sha-512 flagger) --shell $(which bash) flagger
 RUN useradd --comment "2nd Flag account" --create-home --password $(mkpasswd -m sha-512 flagger_the_second) --shell $(which bash) flagger_the_second
+RUN useradd --comment "Build system account" --create-home --password $(mkpasswd -m sha-512 build_system) --shell $(which bash) build_system
 RUN mkdir -p /etc/owasp/flags
 ARG OWASP_FLAG_1
 RUN echo $OWASP_FLAG_1 > /etc/owasp/flags/flag.txt
@@ -39,8 +40,11 @@ RUN chown --verbose --recursive flagger /etc/owasp
 RUN chmod --verbose --recursive 0700 /etc/owasp
 RUN chown --verbose flagger_the_second /flag.txt
 RUN chmod --verbose 0400 /flag.txt
-# echo "gamemaster     ALL=(flagger) NOPASSWD:/usr/bin/whoami, /usr/bin/python3" >> /etc/sudoers
+# OWASP additions
 RUN echo "gamemaster     ALL=(flagger) NOPASSWD:/usr/bin/whoami, /usr/bin/python3" >> /etc/sudoers
+RUN echo "gamemaster     ALL=(flagger_the_second) NOPASSWD:/usr/bin/whoami, /usr/bin/cp, /usr/bin/chown" >> /etc/sudoers
+RUN echo "gamemaster     ALL=(build_system) NOPASSWD: ALL" >> /etc/sudoers
+RUN echo "gamemaster     ALL=(ALL) NOPASSWD:/usr/bin/chown" >> /etc/sudoers
 
 # Set up the player's SSH keys and copy the public key to /tmp
 COPY build/player_entrypoint.sh /home/player

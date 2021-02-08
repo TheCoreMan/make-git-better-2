@@ -1,0 +1,122 @@
+<div id="mynetwork" style="border: 5px inset #e8eef2; height: 20vw; width: 95vw; position: relative; left: calc(-45vw + 45%);"></div>
+
+<script type="text/javascript">
+    var DOTstring = `
+	    {levels_graph_as_dot | unescaped}
+`;
+
+    var parsedData = vis.parseDOTNetwork(DOTstring);
+
+    var data = \{
+	  nodes: parsedData.nodes,
+	  edges: parsedData.edges
+    }
+
+    // Find the currently selected level node
+    currentLabel = document.location.pathname.split("/")[2];
+    currentNodeIndex = parsedData.nodes.findIndex(node => node.label == currentLabel);
+    currentNode = parsedData.nodes[currentNodeIndex]
+    // Add a "you are here" pin to the node graph
+    parsedData.nodes[currentNodeIndex].label = "📍 " + currentNode.label;
+
+    // Emojify all other nodes
+
+    var level_to_emoji = \{
+        "clone": "📠 ",
+        "start": "🔰 ",
+        "basic": "🐣 ",
+        "log": "📜 ",
+        "merge": "🔀 ",
+        "remote": "🚀 ",
+        "rebase": "🔀 ",
+        "revert": "⏮ ",
+        "hooks": "🎣 ",
+        "tag": "🔖 ",
+    }
+    
+    
+    parsedData.nodes = 
+        parsedData.nodes.map(node => \{
+            for (let [level_prefix, emoji] of Object.entries(level_to_emoji)) \{
+                if (node.label.startsWith(level_prefix)) \{ 
+                    node.label = emoji + node.label;
+                }
+            }
+            return node;
+        }
+    );
+
+
+    // create a network
+    var container = document.getElementById('mynetwork');
+
+    var options = \{
+        autoResize: true,
+	nodes: \{
+	    shape: "box",
+	    shadow: true,
+	    color: "#e8eef2",
+	    font: "20px Verdana black"
+	},
+	edges: \{
+	    color: "#e8eef2",
+	},
+	physics: \{
+	    enabled: false
+	},
+	layout: \{
+            hierarchical: \{
+                direction: "LR",
+            }
+        }
+    };
+
+    // initialize your network!
+    var network = new vis.Network(container, data, options);
+
+    // Add the interactive navigation thing. When clicking on a node, move to that page.
+    network.on("click", function(params) \{
+        if (1 == params.nodes.length) \{
+            // levelName is including emoji
+            levelName = data.nodes[params.nodes[0]].label;
+            levelPath = levelName;
+            // strip emoji if exists
+            if (levelName.split(" ").length == 2) \{
+                levelPath = levelName.split(" ")[1];
+            }
+	        resulting_url = document.location.origin + "/levels/" + levelPath;
+            document.location.href = resulting_url;
+        }
+    });
+
+    // Make the current node highlighted
+    network.body.nodes[currentNode.id].selected = true;
+    network.redraw();
+
+    network.once("beforeDrawing", function() \{
+        network.focus(currentNode.id, \{
+        scale: 5
+        });
+    });
+
+    network.once("afterDrawing", function() \{
+        // mobile or putting the chrome browser to the side or etc.
+        var final_scale = 1.25;
+        if (screen.width < 1000) \{
+            var final_scale = 1;
+        }
+        if (screen.width < 800) \{
+            var final_scale = 0.75;
+        }
+
+        network.focus(
+            currentNode.id,
+            \{
+            scale: final_scale,
+            animation: \{
+                duration: 1200,
+                easingFunction: "easeOutQuint"
+            }
+        });
+    });
+</script>

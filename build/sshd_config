@@ -1,0 +1,19 @@
+Include /etc/ssh/sshd_config.d/*.conf
+
+# Change to yes to enable challenge-response passwords (beware issues with
+# some PAM modules and threads)
+ChallengeResponseAuthentication no
+
+X11Forwarding yes
+
+# Allow client to pass locale environment variables
+AcceptEnv LANG LC_*
+
+# override default of no subsystems
+Subsystem       sftp    /usr/lib/openssh/sftp-server
+
+# Close idle after 15 minutes
+ClientAliveInterval 60
+ClientAliveCountMax 15
+UsePAM no
+PrintMotd yes

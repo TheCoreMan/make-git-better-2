@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:focal
 
 # Users will log into this machine, so we need to unminimize it.
 # See https://wiki.ubuntu.com/Minimal
@@ -6,8 +6,10 @@ RUN yes | unminimize
 
 # Install dependencies.
 RUN apt update -y
+RUN apt clean -y
 RUN DEBIAN_FRONTEND="noninteractive" apt install -y tzdata
-RUN apt install -y \
+RUN apt clean -y
+RUN apt update -y && apt install -y \
     git-all \
     vim \
     nano \
@@ -69,7 +71,6 @@ RUN chmod 770 /home/tester/.zshrc
 # Copy the test files to the tester account
 COPY levels/tests /home/tester/tests
 RUN chown --recursive tester:tester /home/tester
-RUN chmod 770 --recursive tester:tester /home/tester/tests
 
 # Set up SSH
 RUN mkdir /var/run/sshd

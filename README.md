@@ -2,28 +2,27 @@
 
 Git CTF 🚩 but good this time.
 
-- [make-git-better-2](#make-git-better-2)
-  - [Dependencies](#dependencies)
-  - [Build](#build)
-    - [Ansible](#ansible)
-    - [How to build the challenge Docker manually](#how-to-build-the-challenge-docker-manually)
-      - [Create the hook script](#create-the-hook-script)
-        - [powershell](#powershell)
-        - [sh](#sh)
-      - [Build and run docker image](#build-and-run-docker-image)
-        - [Build docker](#build-docker)
-        - [Run docker](#run-docker)
-        - [Copy ssh key (for outside cloning)](#copy-ssh-key-for-outside-cloning)
-        - [Useful oneliner](#useful-oneliner)
-        - [Connect to the running instance](#connect-to-the-running-instance)
-    - [How to build the web content](#how-to-build-the-web-content)
-      - [Build the level browser](#build-the-level-browser)
-    - [Set up docker-tcp-switchboard](#set-up-docker-tcp-switchboard)
-  - [Test](#test)
-    - [Unit tests](#unit-tests)
-    - [Test levels](#test-levels)
-  - [Develop](#develop)
-    - [Add a new stage](#add-a-new-stage)
+* [Dependencies](#dependencies)
+* [Build](#build)
+  * [Ansible](#ansible)
+  * [How to build the challenge Docker manually](#how-to-build-the-challenge-docker-manually)
+    * [Create the hook script](#create-the-hook-script)
+      * [powershell](#powershell)
+      * [sh](#sh)
+    * [Build and run docker image](#build-and-run-docker-image)
+      * [Build docker](#build-docker)
+      * [Run docker](#run-docker)
+      * [Copy ssh key (for outside cloning)](#copy-ssh-key-for-outside-cloning)
+      * [Useful oneliner](#useful-oneliner)
+      * [Connect to the running instance](#connect-to-the-running-instance)
+  * [How to build the web content](#how-to-build-the-web-content)
+    * [Build the level browser](#build-the-level-browser)
+  * [Set up docker-tcp-switchboard](#set-up-docker-tcp-switchboard)
+* [Test](#test)
+  * [Unit tests](#unit-tests)
+  * [Test levels](#test-levels)
+* [Develop](#develop)
+  * [Add a new stage](#add-a-new-stage)
 
 ## Dependencies
 
@@ -45,6 +44,12 @@ ansible-playbook -v -i hosts build.yaml
 ```
 
 Make sure that you have Ansible configured correctly with your SSH keys.
+[Here's the docs](https://docs.ansible.com/ansible/latest/inventory_guide/connection_details.html).
+
+> Note: Remember to expose 22 to your IP. If you're like me with AWS EC2, you
+> need to add a rule to the security group. Like this:
+>
+> `aws ec2 authorize-security-group-ingress --group-id PUT_HERE --protocol tcp --port 22 --cidr "$(curl -s https://wtfismyip.com/json | jq -r '.YourFuckingIPAddress')/32"`
 
 ### How to build the challenge Docker manually
 

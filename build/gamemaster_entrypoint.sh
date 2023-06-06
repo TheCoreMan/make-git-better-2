@@ -23,9 +23,8 @@ cat /tmp/id_rsa.player.pub >> ~/.ssh/authorized_keys
 cat /tmp/id_rsa.tester.pub >> ~/.ssh/authorized_keys
 
 pushd ~/ctf-repo
-echo In $(pwd), updating bare repo...
-ls -la
-git fetch origin +refs/heads/*:refs/heads/* --prune
+echo In $(pwd)
+echo $(git status)
 popd
 
 pushd ~/forked-ctf-repo

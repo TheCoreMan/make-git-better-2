@@ -2,7 +2,11 @@
 title = 'clone'
 branch = 'master'
 solution_checker = 'echo No pushing to master. Read the README file; exit 1'
-flags = ['start-here']
+flags = [
+    'start-here',
+    'owasp-ctf-1',
+    'owasp-ctf-2',
+]
 
 [[levels]]
 title = 'start-here'
@@ -99,8 +103,8 @@ title = 'tag-1'
 branch = 'redamage-bundh-passerina'
 solution_checker = 'hooks/checkers/tag-1.sh'
 flags = [
-    'tag-2', 
-    'hooks-1'
+    'tag-2',
+    'hooks-1',
 ]
 
 [[levels]]
@@ -122,18 +126,28 @@ flags = [
 title = 'rebase-1'
 branch = 'parallelizing-barnhardtite-base'
 solution_checker = 'hooks/checkers/rebase-1.sh'
-flags = [
-    'remote-1'
-]
+flags = ['remote-1']
 
 [[levels]]
 title = 'hooks-2'
 branch = 'cyprus-akees-metope'
 solution_checker = 'hooks/checkers/hooks-2.sh'
-flags = ["hooks-levels-done-you-win"]
+flags = ['hooks-levels-done-you-win']
 
 [[levels]]
 title = 'remote-1'
 branch = 'geared-tidal-consolidated'
 solution_checker = 'hooks/checkers/remote-1.sh'
 flags = ['main-levels-done-you-win']
+
+[[levels]]
+title = 'owasp-ctf-1'
+branch = 'headmistresses-tiptoes-bezzled'
+solution_checker = 'hooks/checkers/owasp-ctf-1.sh'
+flags = ['AppSec-IL{g1t_d035_P3rM1t_T0_c0mm1T}']
+
+[[levels]]
+title = 'owasp-ctf-2'
+branch = 'aghastness-subhead-cyrtometer'
+solution_checker = 'hooks/checkers/owasp-ctf-2.sh'
+flags = ['AppSec-IL{1f_y0u_w4n7_17_c0m3_4nd_917_17}']

@@ -13,6 +13,7 @@ Git CTF 🚩 but good this time.
       - [Build and run docker image](#build-and-run-docker-image)
         - [Build docker](#build-docker)
         - [Run docker](#run-docker)
+        - [Copy ssh key (for outside cloning)](#copy-ssh-key-for-outside-cloning)
         - [Useful oneliner](#useful-oneliner)
         - [Connect to the running instance](#connect-to-the-running-instance)
     - [How to build the web content](#how-to-build-the-web-content)
@@ -68,7 +69,7 @@ cargo run --bin generate-pre-receive-hook -- --verbose ../levels/game-config.tom
 ##### Build docker
 
 ```sh
-docker build --tag mgb:0.1 --build-arg CACHE_DATE=$(date +%Y-%m-%d:%H:%M:%S) .
+docker build --tag mgb:0.1 --build-arg CACHE_DATE=$(date +%Y-%m-%d:%H:%M:%S) --build-arg OWASP_FLAG_1="AppSec-IL{g1t_d035_P3rM1t_T0_c0mm1T}" --build-arg OWASP_FLAG_2="AppSec-IL{1f_y0u_w4n7_17_c0m3_4nd_917_17}" .
 ```
 
 ##### Run docker
@@ -77,10 +78,16 @@ docker build --tag mgb:0.1 --build-arg CACHE_DATE=$(date +%Y-%m-%d:%H:%M:%S) .
 docker run --detach --name mgbtest --publish 7777:22 mgb:0.1
 ```
 
+##### Copy ssh key (for outside cloning)
+
+```sh
+docker cp mgbtest:/home/player/.ssh/id_rsa ./id_rsa.player
+```
+
 ##### Useful oneliner
 
 ```sh
-docker rm -f mgbtest && docker build --build-arg CACHE_DATE=$(date +%Y-%m-%d:%H:%M:%S%z) --tag mgb:0.1 . && docker run --detach --name mgbtest --publish 7777:22 mgb:0.1
+docker rm -f mgbtest; docker build --build-arg CACHE_DATE=$(date +%Y-%m-%d:%H:%M:%S%z) --build-arg OWASP_FLAG_1="AppSec-IL{g1t_d035_P3rM1t_T0_c0mm1T}" --build-arg OWASP_FLAG_2="AppSec-IL{1f_y0u_w4n7_17_c0m3_4nd_917_17}" --tag mgb:0.1 . && docker run --detach --name mgbtest --publish 7777:22 mgb:0.1
 ```
 
 ##### Connect to the running instance

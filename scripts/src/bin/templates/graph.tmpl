@@ -32,6 +32,7 @@
         "revert": "⏮ ",
         "hooks": "🎣 ",
         "tag": "🔖 ",
+        "owasp": "🔏 ",
     }
     
     
@@ -60,13 +61,17 @@
 	},
 	edges: \{
 	    color: "#e8eef2",
+        smooth: \{
+            type: "continuous"
+        }
 	},
 	physics: \{
-	    enabled: false
+	    enabled: true
 	},
 	layout: \{
             hierarchical: \{
                 direction: "LR",
+                sortMethod: "directed",
             }
         }
     };

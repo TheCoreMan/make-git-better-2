@@ -18,15 +18,15 @@ sed -i 's/\[REDACTED\]/\/etc\/owasp\/flags\/flag.txt/g' capture_the_flag.py
 git add --all
 git commit -m "fixed path"
 
-git push > push_result 2>&1
+git push >push_result 2>&1
 
 # check_results
-if [ $(grep "AppSec_IL" push_result | wc -l) -gt 0 ]; then
-    git reset --hard > /dev/null 2>&1
-    git clean -f -d > /dev/null 2>&1
+if [ $(grep "AppSec-IL" push_result | wc -l) -gt 0 ]; then
+    git reset --hard >/dev/null 2>&1
+    git clean -f -d >/dev/null 2>&1
     exit 0
-else 
-    git reset --hard > /dev/null 2>&1
-    git clean -f -d > /dev/null 2>&1
+else
+    git reset --hard >/dev/null 2>&1
+    git clean -f -d >/dev/null 2>&1
     exit 1
 fi

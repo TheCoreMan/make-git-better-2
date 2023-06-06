@@ -20,7 +20,8 @@ RUN apt install -y \
     tmux \
     man \
     fzf \ 
-    sudo
+    sudo \
+    jq
 
 # Create the required users. The game master is the `git` account, and the player is the user's account
 RUN useradd --comment "GameMaster account" --create-home --password $(mkpasswd -m sha-512 95+mcguffin+STRONG+ainasdf+15) gamemaster
@@ -68,27 +69,17 @@ RUN chmod 770 /home/tester/.zshrc
 # Copy the test files to the tester account
 COPY levels/tests /home/tester/tests
 RUN chown --recursive tester:tester /home/tester
+RUN chmod 770 --recursive tester:tester /home/tester/tests
 
 # Set up SSH
 RUN mkdir /var/run/sshd
 COPY build/sshd_config /etc/ssh/sshd_config
 COPY build/login_banner.txt /etc/motd
 
-RUN mkdir -p /root/.ssh && \
-    chmod 0700 /root/.ssh && \
-    ssh-keyscan github.com > /root/.ssh/known_hosts
-COPY build/id_rsa_mgbp_docker /root/.ssh/id_rsa
-COPY build/id_rsa_mgbp_docker.pub /root/.ssh/id_rsa.pub
-RUN chmod 0600 /root/.ssh/* && \
-    eval "$(ssh-agent -s)" && \
-    ssh-add /root/.ssh/id_rsa
-
 RUN /etc/init.d/ssh start && ssh-keyscan -H localhost >> /home/player/.ssh/known_hosts && ssh-keyscan -H localhost >> /home/tester/.ssh/known_hosts
 
 # Set up the git server so that the player can run git clone gamemaster@localhost:/home/gamemaster/ctf-repo
-RUN eval "$(ssh-agent -s)" && \
-    ssh-add /root/.ssh/id_rsa && \
-    git clone --bare git@github.com:TheCoreMan/make-git-better-levels-private.git /home/gamemaster/ctf-repo
+RUN git clone --bare https://github.com/TheCoreMan/make-git-better-levels.git /home/gamemaster/ctf-repo
 # Set up the other remote for the remote stages
 RUN git clone --bare https://github.com/sandspider2234/make-git-better-levels.git /home/gamemaster/forked-ctf-repo
 # This file adds the player's ssh public key from before
@@ -102,10 +93,6 @@ ARG CACHE_DATE
 RUN echo "This CTF server was built at "$CACHE_DATE"." >> /etc/motd
 RUN ls -la "/home/gamemaster"
 RUN su -c "/home/gamemaster/gamemaster_entrypoint.sh" - gamemaster
-RUN eval "$(ssh-agent -s)" && \
-    ssh-add /root/.ssh/id_rsa && \
-    cd /home/gamemaster/ctf-repo/ && \
-    git fetch origin +refs/heads/*:refs/heads/* --prune
 # Set up the hooks for the actual gameplay in the repo
 COPY levels/checkers /home/gamemaster/ctf-repo/hooks/checkers
 COPY scripts/output/pre-receive /home/gamemaster/ctf-repo/hooks

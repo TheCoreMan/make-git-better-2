@@ -13,9 +13,17 @@ twitter:
   image: "https://i.imgur.com/ROzkHYp.png"
 ---
 
-[Click here.](https://appsecil2020.ctf.today/)
+This level was a part of OWASP CTF 2020.
 
-```
+{{< levelgraph >}}
+
+The focus of this level is AppSec, and specifically, `git` security. But not
+`git` fundamentals, like the rest of the levels in this CTF. So you should
+_probably_ solve the rest of the levels first.
+
+![OWASP logo](/images/OWASP-IL-Icon.png "OWASP logo")
+
+```txt
  _____  _    _  ___   ___________ 
 |  _  || |  | |/ _ \ /  ___| ___ \
 | | | || |  | / /_\ \\ `--.| |_/ /
@@ -25,8 +33,16 @@ twitter:
                                   
 ```
 
-## ALL LEVELS WHICH DON'T START WITH "OWASP" ARE NOT A PART OF THE APPSECIL2020 CTF! THEY ARE NOT WORTH POINTS!!!
+[~~Click here~~](https://appsecil2020.ctf.today/). In the past, this link worked.
+The CTF is over now, so it doesn't work anymore. Here are the instructions to
+start:
 
-You can try to play the open source, free, and non-affiliated CTF - `make-git-better` - on your own, if you want. [Start here](https://mrnice.dev/ctf).
+`git checkout headmistresses-tiptoes-bezzled`.
 
-{{< levelgraph >}}
+## 🧩 Hints
+
+Click on the hint to see it.
+
+{{% expand "Writeup" %}}
+[Solved by JCTF Team](https://jctf.team/AppSec-IL-2020/come-and-git-it-1/).
+{{% /expand %}}

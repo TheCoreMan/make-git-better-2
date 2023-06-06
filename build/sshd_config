@@ -19,4 +19,4 @@ UsePAM no
 PrintMotd yes
 
 # OWASP addition - hardning server
-DenyUsers player tester build_system flagger flagger_the_second
+# DenyUsers player tester build_system flagger flagger_the_second

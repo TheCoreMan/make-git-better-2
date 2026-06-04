@@ -26,20 +26,33 @@ Git CTF 🚩 but good this time.
 
 ## Dependencies
 
-- Rust
-- Docker
-- Python 3.6 (for docker TCP switchboard)
-- Ansible (optional)
+* Rust
+* Docker
+* Python 3.6 (for docker TCP switchboard)
+* Ansible (optional)
 
 ## Build
 
 ### Ansible
 
-Using Ansible, you can build and deploy the game server from nothing.
+#### EDIT for 2026
+
+I don't know who's paying Python developers to make my life misrable but of course:
+
+1. Python3.8+ is not installable on my machine (amazon linux 1)
+2. Ansible won't work with "old" Python versions (3.6, which is what I have)
+
+So to "freeze" everything, run:
+
+```bash
+uvx --from 'ansible-core==2.16.*' ansible-playbook -vvv -i hosts2 build.yaml
+```
+
+Using Ansible, you can build and deploy the game server from (almost) nothing.
 
 ```bash
 cd build/ansible
-sed -i 's/ctf.mrnice.dev/your.server.com/g' hosts
+sed -i s/ctf.mrnice.dev/your.server.com/g'' hosts
 ansible-playbook -v -i hosts build.yaml
 ```
 
@@ -50,6 +63,37 @@ Make sure that you have Ansible configured correctly with your SSH keys.
 > need to add a rule to the security group. Like this:
 >
 > `aws ec2 authorize-security-group-ingress --group-id PUT_HERE --protocol tcp --port 22 --cidr "$(curl -s https://wtfismyip.com/json | jq -r '.YourFuckingIPAddress')/32"`
+
+#### Why "almost"
+
+If you set up a BRAND new server you have to install the following things ON IT AS WELL
+so Ansible will work:
+
+* Git
+* Docker
+* Rust (needs `cargo`)
+* Python (needs `pip`)
+
+For Amazon Linux 2023, here are the commands:
+
+```sh
+sudo dnf update -y
+sudo dnf install git -y
+sudo dnf groupinstall "Development Tools" -y
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source "$HOME/.cargo/env"
+# test: cargo --version
+sudo dnf install -y docker
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo systemctl status docker
+sudo usermod -aG docker $USER
+newgrp docker
+# test: docker run hello-world
+sudo dnf install python3 python3-pip -y
+# test: python3 --version
+pip3 --version
+```
 
 ### How to build the challenge Docker manually
 

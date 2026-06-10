@@ -1,0 +1,23 @@
+[package]
+name = "make-git-better-scripts"
+version = "0.1.0"
+authors = ["Shay Nehmad <shay.nehmad@guardicore.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "common"
+path = "src/lib/lib.rs"
+
+[dependencies]
+structopt = "0.3.13"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.5"
+tinytemplate = "1.0.4"
+simple_logger = "1.6.0"
+log = "0.4"
+petgraph = "0.5"
+rand = "0.7.3"
+text_io = "0.1.8"

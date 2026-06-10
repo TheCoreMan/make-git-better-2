@@ -1,0 +1,143 @@
+[[levels]]
+title = 'clone'
+branch = 'master'
+solution_checker = 'echo No pushing to master. Read the README file; exit 1'
+flags = ['start-here', 'owasp-ctf-1', 'owasp-ctf-2']
+
+[[levels]]
+title = 'start-here'
+branch = 'start-here'
+solution_checker = 'hooks/checkers/start-here.sh'
+flags = ['basic-1']
+
+[[levels]]
+title = 'basic-1'
+branch = 'scorpion-treenware-gestatory'
+solution_checker = 'hooks/checkers/basic-1.sh'
+flags = ['basic-2']
+
+[[levels]]
+title = 'basic-2'
+branch = 'sidespins-areae-regalio'
+solution_checker = 'hooks/checkers/basic-2.sh'
+flags = ['merge-1', 'log-1']
+
+[[levels]]
+title = 'merge-1'
+branch = 'macrochiropteran-jupon-lutecium'
+solution_checker = 'hooks/checkers/merge-1.sh'
+flags = ['merge-2']
+
+[[levels]]
+title = 'merge-2'
+branch = 'poseuse-citronwood-manganese'
+solution_checker = 'hooks/checkers/merge-2.sh'
+flags = ['merge-3', 'rebase-1']
+
+[[levels]]
+title = 'log-1'
+branch = 'turbulator-feere-reinclined'
+solution_checker = 'hooks/checkers/log-1.sh'
+flags = ['log-2']
+
+[[levels]]
+title = 'log-2'
+branch = 'insatiably-skyjackers-program'
+solution_checker = 'hooks/checkers/log-2.sh'
+flags = ['log-3']
+
+[[levels]]
+title = 'log-3'
+branch = 'originates-anagyrine-untolerative'
+solution_checker = 'hooks/checkers/log-3.sh'
+flags = ['log-4']
+
+[[levels]]
+title = 'log-4'
+branch = 'belialist-interlaying-mize'
+solution_checker = 'hooks/checkers/log-4.sh'
+flags = ['log-5']
+
+[[levels]]
+title = 'log-5'
+branch = 'pamphletary-harnessing-petticoaterie'
+solution_checker = 'hooks/checkers/log-5.sh'
+flags = []
+
+[[levels]]
+title = 'merge-3'
+branch = 'twee-enfamish-stropharia'
+solution_checker = 'hooks/checkers/merge-3.sh'
+flags = ['merge-4', 'revert-1']
+
+[[levels]]
+title = 'revert-1'
+branch = 'lomentaceous-mididae-hexadecane'
+solution_checker = 'hooks/checkers/revert-1.sh'
+flags = ['tag-1']
+
+[[levels]]
+title = 'merge-4'
+branch = 'multichord-ethicalism-fenestration'
+solution_checker = 'hooks/checkers/merge-4.sh'
+flags = ['merge-5']
+
+[[levels]]
+title = 'merge-5'
+branch = 'reappraise-veratroyl-garfishes'
+solution_checker = 'hooks/checkers/merge-5.sh'
+flags = ['merge-levels-done-you-win']
+
+[[levels]]
+title = 'tag-1'
+branch = 'redamage-bundh-passerina'
+solution_checker = 'hooks/checkers/tag-1.sh'
+flags = ['tag-2', 'hooks-1']
+
+[[levels]]
+title = 'tag-2'
+branch = 'individually-nonintroversive-chalcomancy'
+solution_checker = 'hooks/checkers/tag-2.sh'
+flags = []
+
+[[levels]]
+title = 'hooks-1'
+branch = 'hands-trooshlach-nongassy'
+solution_checker = 'hooks/checkers/hooks-1.sh'
+flags = ['hooks-2', 'remote-1']
+
+[[levels]]
+title = 'rebase-1'
+branch = 'parallelizing-barnhardtite-base'
+solution_checker = 'hooks/checkers/rebase-1.sh'
+flags = ['rebase-2']
+
+[[levels]]
+title = 'hooks-2'
+branch = 'cyprus-akees-metope'
+solution_checker = 'hooks/checkers/hooks-2.sh'
+flags = ['hooks-levels-done-you-win']
+
+[[levels]]
+title = 'remote-1'
+branch = 'geared-tidal-consolidated'
+solution_checker = 'hooks/checkers/remote-1.sh'
+flags = ['main-levels-done-you-win']
+
+[[levels]]
+title = 'owasp-ctf-1'
+branch = 'headmistresses-tiptoes-bezzled'
+solution_checker = 'hooks/checkers/owasp-ctf-1.sh'
+flags = ['AppSec-IL{g1t_d035_P3rM1t_T0_c0mm1T}']
+
+[[levels]]
+title = 'owasp-ctf-2'
+branch = 'aghastness-subhead-cyrtometer'
+solution_checker = 'hooks/checkers/owasp-ctf-2.sh'
+flags = ['AppSec-IL{1f_y0u_w4n7_17_c0m3_4nd_917_17}']
+
+[[levels]]
+title = 'rebase-2'
+branch = 'downfalling-bumbled-sootiness'
+solution_checker = 'hooks/checkers/rebase-2.sh'
+flags = ['rebase-levels-done-you-win']

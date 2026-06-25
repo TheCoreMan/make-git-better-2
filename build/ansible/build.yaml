@@ -4,7 +4,7 @@
       git:
         repo: "https://github.com/TheCoreMan/make-git-better-2.git"
         dest: /home/{{ ansible_facts['user_id'] }}/make-git-better-2
-        version: dev
+        version: 26/auto-hof-page
         accept_hostkey: yes
 
     - name: Compile rust
@@ -16,6 +16,13 @@
       shell: docker build --tag mgb:0.1 --build-arg CACHE_DATE=$(date +%Y-%m-%d:%H:%M:%S%z) --build-arg OWASP_FLAG_1="AppSec-IL{g1t_d035_P3rM1t_T0_c0mm1T}" --build-arg OWASP_FLAG_2="AppSec-IL{1f_y0u_w4n7_17_c0m3_4nd_917_17}" .
       args:
         chdir: /home/{{ ansible_facts['user_id'] }}/make-git-better-2
+      become: yes
+    
+    - name: Docker housekeeping, delete untagged built docker images to save space
+      shell: docker rmi $(docker images | grep "^<none>" | awk '{ print $3 }')
+      # Can ignore errors if no such images exist
+      ignore_errors: true
+      become: yes
 
     - name: Clone docker-tcp-switchboard
       git:
@@ -52,4 +59,26 @@
       # This shell line is required because Ansible sends a kill signal to Python
       # when it finishes running. The nohup is there to prevent it, and the redirections
       # prevent breaking the process.
+      become: yes
+
+    - name: Submit Flags - Install wasm requirements 1
+      yum:
+        name: 
+          - openssl-devel
+          - pkgconfig
+      become: yes
+    
+    - name: Submit Flags - Install wasm-pack
+      command: /home/{{ ansible_facts['user_id'] }}/.cargo/bin/cargo install wasm-pack
+
+    - name: Submit Flags - Build wasm
+      shell: /home/{{ ansible_facts['user_id'] }}/.cargo/bin/wasm-pack build --target web --out-name wasm --out-dir ./static
+      args:
+        chdir: /home/{{ ansible_facts['user_id'] }}/make-git-better-2/submit-flags/submit-flags-app
+    
+    - name: Submit Flags - Install HTTP server
+      command: /home/{{ ansible_facts['user_id'] }}/.cargo/bin/cargo install simple-http-server
+    
+    - name: Submit Flags - Run HTTP server
+      shell: nohup /home/{{ ansible_facts['user_id'] }}/.cargo/bin/simple-http-server --index --nocache --port 1337 /home/{{ ansible_facts['user_id'] }}/make-git-better-2/submit-flags/submit-flags-app/static </dev/null >/dev/null 2>&1 &
       become: yes

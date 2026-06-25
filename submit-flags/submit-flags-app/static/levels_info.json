@@ -1,0 +1,25 @@
+{
+	"levels":
+	[
+		{
+			"name": "remote-1",
+			"flag": "cb045a9406baa9354fa33cff3fdd27f48165b07cc5a9da025eb4f52ead3d483f"
+		},
+		{
+			"name": "log-5",
+			"flag": "cd8a9375f7d4e9c37e1d402f55ac13fd7762d48d975b6ff6b84b136e4dd8f96f"
+		},
+		{
+			"name": "merge-5",
+			"flag": "b1a4235065bbb7ac9ba90106d56c2d7fa691524621d1c5067920b04b291031e2"
+		},
+		{
+			"name": "hooks-2",
+			"flag": "2ac12517dba3277afbffeece186e2884e5cecf90e970ce9a7c8f550f12c5ef60"
+		},
+		{
+			"name": "tag-2",
+			"flag": "7ca275600a4d349e3ba7517d0ca4a9f5e0347f4b7a3fb90e3aa102a82db607fe"
+		}
+	]
+}

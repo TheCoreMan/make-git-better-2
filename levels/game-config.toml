@@ -62,7 +62,7 @@ flags = ['log-5']
 title = 'log-5'
 branch = 'pamphletary-harnessing-petticoaterie'
 solution_checker = 'hooks/checkers/log-5.sh'
-flags = []
+flags = ['log-flag-meteorical']
 
 [[levels]]
 title = 'merge-3'
@@ -98,7 +98,7 @@ flags = ['tag-2', 'hooks-1']
 title = 'tag-2'
 branch = 'individually-nonintroversive-chalcomancy'
 solution_checker = 'hooks/checkers/tag-2.sh'
-flags = []
+flags = ['individually-nonintroversive-chalcomancy']
 
 [[levels]]
 title = 'hooks-1'
